@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 446372}
   - 111: {fileID: 11127398}
   - 65: {fileID: 6518124}
-  - 114: {fileID: 11410600}
+  - 114: {fileID: 11426320}
   m_Layer: 0
   m_Name: Obstacle
   m_TagString: Untagged
@@ -161,7 +161,7 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!114 &11410600
+--- !u!114 &11426320
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -169,44 +169,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 110736}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f8134ada166d4ecd8586c60ef51f126, type: 3}
+  m_Script: {fileID: 11500000, guid: dc659e16c9feb43a3a092548b0c69f60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  onTriggerEnter:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11127398}
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 11410600}
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Cluster.TriggerCall+TriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onTriggerExit:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Cluster.TriggerCall+TriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
