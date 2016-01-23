@@ -37,6 +37,7 @@ public class RigMover : MonoBehaviour {
 
 	// Update is called once per frame
 	void LateUpdate () {
+        if (newPlatform == null) return;
 		float lerp = Mathf.Clamp01 ((Time.time - switchStartTime) / transitionDuration);
 
 		if (lerp == 1 || oldPlatform == null)
@@ -49,6 +50,6 @@ public class RigMover : MonoBehaviour {
 
 	Vector3 GetRigPositionFromPlatform (Platform platform) {
 		return platform.platform.position
-			+ new Vector3 (platform.tileX, 0, platform.tileY) * Controller.instance.size;
+			+ new Vector3 (-platform.tileX, 0, -platform.tileY) * Controller.instance.size;
 	}
 }
