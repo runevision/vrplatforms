@@ -13,7 +13,7 @@ public class Controller : MonoBehaviour {
 	public float size = 1;
 
 	// Use this for initialization
-	void Awake () {
+	void OnEnable () {
 		m_Instance = this;
 	}
 

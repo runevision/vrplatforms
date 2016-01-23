@@ -35,7 +35,7 @@ public class Platform : MonoBehaviour {
 	}
 
 	void OnRenderObject () {
-		if (Camera.current == Camera.main)
+		if (Camera.current.tag == "MainCamera")
 			return;
 
 		DrawEnd (endA, markerMaterialA);
