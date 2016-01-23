@@ -4,11 +4,13 @@ using System.Collections;
 public class StartHandler : MonoBehaviour {
 
 	public Transform chest;
+	public GameObject startMarker;
 	public GameObject level;
 
 	// Use this for initialization
 	void Start () {
 		level.SetActive (false);
+		startMarker.SetActive (true);
 	}
 	
 	// Update is called once per frame
@@ -20,7 +22,7 @@ public class StartHandler : MonoBehaviour {
 	}
 
 	void StartLevel () {
-		gameObject.SetActive (false);
+		startMarker.SetActive (false);
 		level.SetActive (true);
 	}
 }
