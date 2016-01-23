@@ -28,7 +28,8 @@ public class PlatformDetector : MonoBehaviour {
             if (newPlatform != oldPlatform) {
                 RigMover.instance.SetPlatform(platform);
                 newPlatform.GetComponent<Renderer>().material.color = new Color (1.2f, 1.2f, 1.2f);
-                if (oldPlatform) oldPlatform.GetComponent<Renderer>().material.color = Color.white;
+                if (oldPlatform)
+                    oldPlatform.GetComponent<Renderer>().material.color = Color.white;
                 oldPlatform = newPlatform;
                 if(platform.onlyOnce)
                 {
