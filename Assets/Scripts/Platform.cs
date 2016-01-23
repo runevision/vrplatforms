@@ -78,7 +78,7 @@ public class Platform : MonoBehaviour {
                 lerp = (adjust / Controller.instance.pause) % 2; //Should be zero or one depening on where in time we are.
                 if (Time.time - timer > localDuration + Controller.instance.pause)
                 {
-                    timer = Time.time;
+                    timer += localDuration + Controller.instance.pause;
                     adjust += Controller.instance.pause;
                 }
             }
