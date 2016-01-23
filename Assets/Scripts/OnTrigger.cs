@@ -3,7 +3,7 @@ using System.Collections;
 
 public class OnTrigger : MonoBehaviour {
 
-    void OnTriggerEnter(Collider other)
+    void OnCollisionEnter()
     {
         float hoverForce = 1.0f;
         Debug.Log("Trigger enter");
@@ -20,11 +20,6 @@ public class OnTrigger : MonoBehaviour {
         audio.Play();
 
         RigMover.instance.SetPlatform(null);
-
-    }
-
-    void OnTriggerExit(Collider other)
-    {
 
     }
 }
