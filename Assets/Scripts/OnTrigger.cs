@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class OnTrigger : MonoBehaviour {
@@ -23,5 +24,9 @@ public class OnTrigger : MonoBehaviour {
         Invoke("Reload", 3);
         Transform rig = transform.parent.transform;
         rig.GetComponent<Fall>().StartFalling();
+    }
+
+    void Reload () {
+        SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
     }
 }
