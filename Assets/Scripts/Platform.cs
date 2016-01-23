@@ -22,7 +22,7 @@ public class Platform : MonoBehaviour {
 	public Material markerMaterialB;
 
     private float timer = 0;
-    private float adjust = 0;
+    private int pauses = 0;
     private bool start = false;
 
 	// Use this for initialization
@@ -71,22 +71,21 @@ public class Platform : MonoBehaviour {
             float lerp;
             if (Time.time - timer + 0.1 < localDuration)
             {
-                lerp = Mathf.Cos((Time.time - adjust) * Mathf.PI * 2 / (localDuration * 2)) * 0.5f + 0.5f;
+                lerp = Mathf.Cos((Time.time - timer) * Mathf.PI * 2 / (localDuration * 2)) * 0.5f + 0.5f;
+                if (pauses % 2 == 1)
+                    lerp = 1 - lerp;
             }
             else
             {
-                lerp = (adjust / Controller.instance.pause) % 2; //Should be zero or one depening on where in time we are.
+                lerp = pauses % 2;
                 if (Time.time - timer > localDuration + Controller.instance.pause)
                 {
                     timer += localDuration + Controller.instance.pause;
-                    adjust += Controller.instance.pause;
+                    pauses++;
                 }
             }
             platform.position = Vector3.Lerp(endA.position, endB.position, lerp);
         }
-
-        if (Controller.instance.size != platform.localScale.x)
-            platform.localScale = Vector3.one * Controller.instance.size;
     }
 
 	void OnRenderObject () {

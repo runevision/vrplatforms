@@ -27,7 +27,7 @@ public class RigMover : MonoBehaviour {
 		newPlatform = platform;
 		switchStartTime = Time.time;
 
-		if (oldPlatform == null) {
+		if (oldPlatform == null || newPlatform == null) {
 			transitionDuration = 0;
 			return;
 		}
