@@ -789,7 +789,7 @@ ParticleSystem:
         rgba: 4294967295
       minMaxState: 0
     startSize:
-      scalar: 0.0075
+      scalar: 0.01
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -2122,6 +2122,10 @@ Prefab:
       propertyPath: playerHead
       value: 
       objectReference: {fileID: 176658}
+    - target: {fileID: 0}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.01
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 199728}
