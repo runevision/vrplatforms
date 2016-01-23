@@ -79,6 +79,7 @@ GameObject:
   - 4: {fileID: 447500}
   - 33: {fileID: 3302632}
   - 23: {fileID: 2364052}
+  - 114: {fileID: 11415210}
   m_Layer: 0
   m_Name: inverted_cube
   m_TagString: Untagged
@@ -120,6 +121,7 @@ GameObject:
   - 82: {fileID: 8211430}
   - 135: {fileID: 13539684}
   - 114: {fileID: 11435160}
+  - 114: {fileID: 11493776}
   m_Layer: 0
   m_Name: Camera (head)
   m_TagString: MainCamera
@@ -208,7 +210,7 @@ Transform:
   m_GameObject: {fileID: 151370}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071067}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6, y: 6, z: 6}
+  m_LocalScale: {x: 7, y: 7, z: 7}
   m_Children: []
   m_Father: {fileID: 478626}
   m_RootOrder: 2
@@ -384,7 +386,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 47eb182f2af5dbd45bb689f33199c311, type: 2}
+  - {fileID: 2100000, guid: 5c02e2a31fb6019469d232b8266cf7a1, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -547,6 +549,17 @@ MonoBehaviour:
   verbose: 0
   createComponents: 1
   updateDynamically: 1
+--- !u!114 &11415210
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 151370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cecde3a709dd1e4bb093deb53b0326c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11423548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -713,6 +726,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scale: 1.5
   drawOverlay: 1
+--- !u!114 &11493776
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be9d892928480408681f88a424942e48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LookAtTransform: {fileID: 0}
 --- !u!119 &11944040
 Projector:
   m_ObjectHideFlags: 1
@@ -748,7 +773,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.15
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &19879836
 ParticleSystem:

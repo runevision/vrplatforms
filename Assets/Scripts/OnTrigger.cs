@@ -14,9 +14,7 @@ public class OnTrigger : MonoBehaviour {
 
         Renderer rend = transform.Find("inverted_cube").GetComponent<Renderer>();
         rend.enabled = true;
-        Color color = rend.material.color;
-        color.a = 0.5f;
-        rend.material.color = color;
+        transform.Find("inverted_cube").GetComponent<Fade>().StartFade();
 
         AudioSource audio = GetComponent<AudioSource>();
         audio.Play();
