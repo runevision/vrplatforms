@@ -34,7 +34,7 @@ public class RigMover : MonoBehaviour {
 
 		Vector3 oldPos = GetRigPositionFromPlatform (oldPlatform);
 		Vector3 newPos = GetRigPositionFromPlatform (newPlatform);
-		transitionDuration = Vector3.Distance (oldPos, newPos);
+		transitionDuration = Vector3.Distance (oldPos, newPos) / transitionSpeed;
 		transitionDuration = Mathf.Max (transitionDuration, 0.01f);
 	}
 
