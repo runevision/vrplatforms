@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 [ExecuteInEditMode]
@@ -17,6 +18,11 @@ public class Controller : MonoBehaviour {
 	// Use this for initialization
 	void OnEnable () {
 		m_Instance = this;
+	}
+
+	void Update () {
+		if (Input.GetKeyDown(KeyCode.Space))
+			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
 	}
 
 	#if UNITY_EDITOR
