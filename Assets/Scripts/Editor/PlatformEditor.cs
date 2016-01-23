@@ -19,5 +19,16 @@ public class PlatformEditor : Editor {
 			Event.current.Use ();
 			SceneView.RepaintAll ();
 		}
+
+		EditorGUILayout.Space();
+
+		EditorGUI.BeginChangeCheck ();
+		float size = EditorGUILayout.Slider ("Size", Controller.instance.size, 0.5f, 2);
+		if (EditorGUI.EndChangeCheck ()) {
+			Controller.instance.size = size;
+			SceneView.RepaintAll ();
+		}
+
+		Controller.instance.duration = EditorGUILayout.Slider ("Duration", Controller.instance.duration, 4, 32);
 	}
 }
