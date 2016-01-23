@@ -5,8 +5,7 @@ public class PlatformDetector : MonoBehaviour {
 
     public GameObject playerHead;
 
-    private GameObject oldPlatform, newPlatform;
-    private bool overPlatform = false;
+    private GameObject oldPlatform;
 
 	// Use this for initialization
 	void Start () {
@@ -22,18 +21,16 @@ public class PlatformDetector : MonoBehaviour {
         {
             // If overPlatform == false or newPlatform != oldPlatform, trigger new platform event.
             // 
-            newPlatform = hit.transform.gameObject;
+            GameObject newPlatform = hit.transform.gameObject;
             Platform platform = newPlatform.transform.GetComponentInParent<Platform>();
             if (platform == null) return;
 
-            // if (!overPlatform || newPlatform != oldPlatform) {
-
+            if (newPlatform != oldPlatform) {
                 RigMover.instance.SetPlatform(platform);
-                Debug.Log("New platform hit! :O");
                 newPlatform.GetComponent<Renderer>().material.color = Color.red;
-
-
-            //}     
+                if (oldPlatform) oldPlatform.GetComponent<Renderer>().material.color = Color.white;
+                oldPlatform = newPlatform;
+            }
         }
     }
 }
