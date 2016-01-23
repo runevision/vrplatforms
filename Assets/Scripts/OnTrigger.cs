@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class OnTrigger : MonoBehaviour {
@@ -21,5 +22,10 @@ public class OnTrigger : MonoBehaviour {
 
         RigMover.instance.SetPlatform(null);
 
+        Invoke(Reload, 3);
+    }
+
+    void Reload () {
+		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
     }
 }

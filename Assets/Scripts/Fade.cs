@@ -15,7 +15,7 @@ public class Fade : MonoBehaviour {
 	    if(fade)
         {
             Color color = GetComponent<Renderer>().material.color;
-            color.a += 0.01f;
+            color.a = Mathf.MoveTowards (color.a, 1, Time.deltaTime);
             GetComponent<Renderer>().material.color = color;
             Debug.Log("Alpha is " + color.a);
         }
