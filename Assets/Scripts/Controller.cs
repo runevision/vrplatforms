@@ -11,7 +11,7 @@ public class Controller : MonoBehaviour {
     public float duration = 2;
 	[Range (0.5f, 1.5f)]
     public float size = 1;
-    [Range(1, 15)]
+    [Range(0, 15)]
     public float pause = 1;
 
 	// Use this for initialization

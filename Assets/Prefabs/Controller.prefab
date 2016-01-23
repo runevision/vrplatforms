@@ -40,8 +40,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20ef8a883bc6543dd8200d37b6fe183e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 6
+  duration: 3
   size: 0.75
+  pause: 0.5
 --- !u!114 &11452648
 MonoBehaviour:
   m_ObjectHideFlags: 1
