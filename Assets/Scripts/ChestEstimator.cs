@@ -11,7 +11,7 @@ public class ChestEstimator : MonoBehaviour {
 	// Update is called once per frame
 	void LateUpdate () {
 		Transform head = transform.parent;
-		Vector3 chestPos = head.position - head.up * 0.3f;
+		Vector3 chestPos = head.position - head.up * 0.8f;
 
 		transform.position = chestPos;
 		transform.rotation = Quaternion.identity;
