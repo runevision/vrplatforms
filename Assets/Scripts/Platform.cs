@@ -84,9 +84,6 @@ public class Platform : MonoBehaviour {
             }
             platform.position = Vector3.Lerp(endA.position, endB.position, lerp);
         }
-
-        if (Controller.instance.size != platform.localScale.x)
-            platform.localScale = Vector3.one * Controller.instance.size;
     }
 
 	void OnRenderObject () {
