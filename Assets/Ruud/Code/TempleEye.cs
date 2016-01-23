@@ -10,6 +10,7 @@ public class TempleEye : MonoBehaviour {
 	protected LaserBeam _laser;
 	protected MeshRenderer _eyeRenderer;
 	protected Quaternion _initialEyeRotation;
+	protected AreaOfEffect _areaOfEffect;
 	
 	protected int _eyeRotationCount = 0;
 	protected int _randomEyeRotations = 10;
@@ -39,6 +40,8 @@ public class TempleEye : MonoBehaviour {
 		_laser = GetComponentInChildren<LaserBeam>();
 		_eyeRenderer = GetComponent<MeshRenderer>();
 		_initialEyeRotation = transform.localRotation;
+		_areaOfEffect = GetComponentInChildren<AreaOfEffect>();
+		
 		IrisColor = DeactivatedColor;
 		EnableLaser(false);
 		//StartSearchInterval();
