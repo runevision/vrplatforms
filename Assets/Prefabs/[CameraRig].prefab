@@ -121,7 +121,7 @@ GameObject:
   - 82: {fileID: 8211430}
   - 135: {fileID: 13539684}
   - 114: {fileID: 11435160}
-  - 114: {fileID: 11493776}
+  - 114: {fileID: 11402532}
   m_Layer: 0
   m_Name: Camera (head)
   m_TagString: MainCamera
@@ -519,6 +519,18 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 176658}
   m_Enabled: 1
+--- !u!114 &11402532
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be9d892928480408681f88a424942e48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LookAtTransform: {fileID: 0}
 --- !u!114 &11406060
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -726,18 +738,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scale: 1.5
   drawOverlay: 1
---- !u!114 &11493776
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 176658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be9d892928480408681f88a424942e48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LookAtTransform: {fileID: 0}
 --- !u!119 &11944040
 Projector:
   m_ObjectHideFlags: 1
