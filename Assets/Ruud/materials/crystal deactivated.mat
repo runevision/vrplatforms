@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: crystal activated
+  m_Name: crystal deactivated
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _ALPHAPREMULTIPLY_ON
   m_LightmapFlags: 5
@@ -136,4 +136,4 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 0.050448917, g: 0.9044118, b: 0.01995028, a: 0.459}
+        second: {r: 0.9852941, g: 0.2028547, b: 0.2028547, a: 0.459}
