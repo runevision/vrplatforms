@@ -70,6 +70,8 @@ public class TempleEye : MonoBehaviour {
 		
 		if (_hypnoAudio != null)
 			_hypnoAudio.Stop();
+			
+		DischargeLaser();
 	}
 
 	public Color IrisColor {
@@ -151,7 +153,7 @@ public class TempleEye : MonoBehaviour {
 	}
 	
 	protected void DischargeLaser() {
-		currentTween = Tween.to(IrisColor, DeactivatedColor, 1.0f, Tween.EaseType.linear,
+		laserChargeTween = Tween.to(IrisColor, DeactivatedColor, 1.0f, Tween.EaseType.linear,
 			(Tween t) => {IrisColor = (Color)t.Value; }
 		);
 	}
