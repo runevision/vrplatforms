@@ -188,13 +188,13 @@ public class TempleEye : MonoBehaviour {
 			//check if you hit a crystal:
 			RaycastHit hit;
 			if (_laser.Enabled && _followHeroGaze && Physics.Raycast(transform.position, transform.forward, out hit, 100f, 1 << LayerMask.NameToLayer("Crystal"))) {
-				_followHeroGaze = false;
-				_crystal = hit.collider.GetComponent<Crystal>();
+				Crystal theCristal = hit.collider.GetComponent<Crystal>();
 				
 				if (_crystal != null) {
-					_crystal.AddEye(this);
-				} else {
-					Debug.Log("Did not find crystal");
+					if (_crystal.AddEye(this)) {
+						_followHeroGaze = false;
+						_crystal = theCristal;
+					}
 				}
 				
 				CancelCurrentTween();

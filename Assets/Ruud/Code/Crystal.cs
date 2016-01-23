@@ -23,11 +23,16 @@ public class Crystal : MonoBehaviour {
 		_renderer.material = DeactivatedMaterial;
 	}
 	
-	public void AddEye(TempleEye eye) {
-		_eyes.Add(eye);	
+	public bool AddEye(TempleEye eye) {		
+		if (_eyes.Count < EyesRequired) {
+			_eyes.Add(eye);	
 		
 		if (_cling != null)
 			_cling.Play();
+		
+		} else {
+			return false;
+		}
 		
 		if (_eyes.Count >= EyesRequired) {	
 			if (!_activated) { 
@@ -37,6 +42,8 @@ public class Crystal : MonoBehaviour {
 					Activated.Invoke();	
 			}
 		}
+		
+		return true;
 	}
 	
 	// Update is called once per frame
