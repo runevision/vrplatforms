@@ -6,6 +6,7 @@ using Rucrede;
 public class TempleEye : MonoBehaviour {
 
 	protected Hero _hero;
+	protected AudioSource _hypnoAudio;
 	protected LaserBeam _laser;
 	protected MeshRenderer _eyeRenderer;
 	protected Quaternion _initialEyeRotation;
@@ -54,14 +55,23 @@ public class TempleEye : MonoBehaviour {
 			ChargeLaser();
 		}else {
 			Debug.Log(name + " hero is not looking");
-			if (laserChargeTween != null) {
-				laserChargeTween.Destroy();
-				laserChargeTween = null;
-			}
+			CancelLaserCharge();
 			StartSearchInterval();
 		}
 		
 		CancelCurrentTween();
+	}
+	
+	protected void CancelLaserCharge() {
+		if (laserChargeTween != null) {
+			laserChargeTween.Destroy();
+			laserChargeTween = null;
+		}
+		
+		if (_hypnoAudio != null)
+			_hypnoAudio.Stop();
+			
+		DischargeLaser();
 	}
 
 	public Color IrisColor {
@@ -128,6 +138,10 @@ public class TempleEye : MonoBehaviour {
 	
 	protected Tween laserChargeTween;
 	protected void ChargeLaser() {
+	
+		if (_hypnoAudio != null)
+			_hypnoAudio.Play();
+				
 		laserChargeTween = Tween.to(IrisColor, ActivatedColor, 2.0f, Tween.EaseType.linear,
 		(Tween t) => {IrisColor = (Color)t.Value; },
 		(Tween t) => { ActivateLaser();}
@@ -139,7 +153,7 @@ public class TempleEye : MonoBehaviour {
 	}
 	
 	protected void DischargeLaser() {
-		currentTween = Tween.to(IrisColor, DeactivatedColor, 1.0f, Tween.EaseType.linear,
+		laserChargeTween = Tween.to(IrisColor, DeactivatedColor, 1.0f, Tween.EaseType.linear,
 			(Tween t) => {IrisColor = (Color)t.Value; }
 		);
 	}

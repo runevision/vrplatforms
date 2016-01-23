@@ -8,6 +8,7 @@ public class Crystal : MonoBehaviour {
 	public int EyesRequired = 1;
 	public List<TempleEye> _eyes;		
 	public UnityEvent Activated;
+	protected AudioSource _cling; 
 	
 	protected bool _activated = false;
 	protected MeshRenderer _renderer;
@@ -18,11 +19,15 @@ public class Crystal : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		_renderer = GetComponentInChildren<MeshRenderer>();
+		_cling = GetComponent<AudioSource>();
 		_renderer.material = DeactivatedMaterial;
 	}
 	
 	public void AddEye(TempleEye eye) {
 		_eyes.Add(eye);	
+		
+		if (_cling != null)
+			_cling.Play();
 		
 		if (_eyes.Count >= EyesRequired) {	
 			if (!_activated) { 
