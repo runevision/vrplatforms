@@ -15,7 +15,7 @@ public class StartHandler : MonoBehaviour {
 	void Update () {
 		Vector3 vector = chest.position - transform.position;
 		vector.y = 0;
-		if (vector.magnitude < 0.5f)
+		if (vector.magnitude < 0.3f)
 			StartLevel ();
 	}
 
