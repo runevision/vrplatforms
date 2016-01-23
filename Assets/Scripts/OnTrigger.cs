@@ -4,7 +4,7 @@ using System.Collections;
 
 public class OnTrigger : MonoBehaviour {
 
-    void OnCollisionEnter()
+    void OnCollisionEnter(Collision other)
     {
         float hoverForce = 1.0f;
         Debug.Log("Trigger enter");
@@ -22,7 +22,7 @@ public class OnTrigger : MonoBehaviour {
 
         RigMover.instance.SetPlatform(null);
 
-        Invoke(Reload, 3);
+        Invoke("Reload", 3);
     }
 
     void Reload () {
