@@ -44,6 +44,7 @@ public class RigMover : MonoBehaviour {
 			return;
 		
 		float lerp = Mathf.Clamp01 ((Time.time - switchStartTime) / transitionDuration);
+		lerp = Mathf.SmoothStep (0, 1, lerp);
 
 		if (lerp == 1 || oldPlatform == null) {
 			rig.transform.position = GetRigPositionFromPlatform (newPlatform);
