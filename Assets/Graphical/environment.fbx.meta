@@ -9,19 +9,24 @@ ModelImporter:
     100002: platform01
     100004: pyramid
     100006: rooms
+    100008: platform02_floating
     400000: //RootNode
     400002: platform01
     400004: pyramid
     400006: rooms
+    400008: platform02_floating
     2300000: platform01
     2300002: pyramid
     2300004: rooms
+    2300006: platform02_floating
     3300000: platform01
     3300002: pyramid
     3300004: rooms
+    3300006: platform02_floating
     4300000: rooms
     4300002: pyramid
     4300004: platform01
+    4300006: platform02_floating
     9500000: //RootNode
   materials:
     importMaterials: 1
