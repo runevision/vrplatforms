@@ -3,8 +3,11 @@ using System.Collections;
 
 public class OnTrigger : MonoBehaviour {
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.layer != LayerMask.NameToLayer("Death"))
+            return;
+        
         Debug.Log("Collision enter");
 
         Renderer rend = transform.Find("inverted_cube").GetComponent<Renderer>();
