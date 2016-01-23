@@ -51,9 +51,9 @@ public class Platform : MonoBehaviour {
                     timer = Time.time;
 
                 float lerp;
-                if (Time.time - timer + 0.1 < localDuration)
+                if (Time.time - timer < localDuration)
                 {
-                    lerp = Mathf.Cos((Time.time - adjust) * Mathf.PI * 2 / (localDuration * 2)) * 0.5f + 0.5f;
+                    lerp = Mathf.Cos((Time.time - timer) * Mathf.PI * 2 / (localDuration * 2) + Mathf.PI) * 0.5f + 0.5f;
                 }
                 else
                 {
@@ -145,7 +145,7 @@ public class Platform : MonoBehaviour {
 		GL.PopMatrix ();
 	}
 
-    void startMoving()
+    public void StartMoving()
     {
         start = true;
     }
