@@ -20,6 +20,9 @@ public class RigMover : MonoBehaviour {
 	}
 
 	public void SetPlatform (Platform platform) {
+		if (platform == newPlatform)
+			return;
+
 		oldPlatform = newPlatform;
 		newPlatform = platform;
 		switchStartTime = Time.time;
@@ -37,15 +40,19 @@ public class RigMover : MonoBehaviour {
 
 	// Update is called once per frame
 	void LateUpdate () {
-        if (newPlatform == null) return;
+		if (newPlatform == null)
+			return;
+		
 		float lerp = Mathf.Clamp01 ((Time.time - switchStartTime) / transitionDuration);
 
-		if (lerp == 1 || oldPlatform == null)
+		if (lerp == 1 || oldPlatform == null) {
 			rig.transform.position = GetRigPositionFromPlatform (newPlatform);
-
-		Vector3 oldPos = GetRigPositionFromPlatform (oldPlatform);
-		Vector3 newPos = GetRigPositionFromPlatform (newPlatform);
-		rig.transform.position = Vector3.Lerp (oldPos, newPos, lerp);
+		}
+		else {
+			Vector3 oldPos = GetRigPositionFromPlatform (oldPlatform);
+			Vector3 newPos = GetRigPositionFromPlatform (newPlatform);
+			rig.transform.position = Vector3.Lerp (oldPos, newPos, lerp);
+		}
 	}
 
 	Vector3 GetRigPositionFromPlatform (Platform platform) {
