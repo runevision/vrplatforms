@@ -10,23 +10,98 @@ ModelImporter:
     100004: pyramid
     100006: rooms
     100008: platform02_floating
+    100010: platform03_rycketplacement
+    100012: Rycket_holder01
+    100014: Rycket_holder02
+    100016: Rycket_holder03
+    100018: Rycket_holder04
+    100020: yycket
+    100022: eye01
+    100024: eye02
+    100026: eye03
+    100028: eye04
+    100030: rottenstuff1
+    100032: rottenstuff2
+    100034: rottenstuff3
+    100036: rottenstuff4
+    100038: Rycket
     400000: //RootNode
     400002: platform01
     400004: pyramid
     400006: rooms
     400008: platform02_floating
+    400010: platform03_rycketplacement
+    400012: Rycket_holder01
+    400014: Rycket_holder02
+    400016: Rycket_holder03
+    400018: Rycket_holder04
+    400020: yycket
+    400022: eye01
+    400024: eye02
+    400026: eye03
+    400028: eye04
+    400030: rottenstuff1
+    400032: rottenstuff2
+    400034: rottenstuff3
+    400036: rottenstuff4
+    400038: Rycket
     2300000: platform01
     2300002: pyramid
     2300004: rooms
     2300006: platform02_floating
+    2300008: platform03_rycketplacement
+    2300010: Rycket_holder01
+    2300012: Rycket_holder02
+    2300014: Rycket_holder03
+    2300016: Rycket_holder04
+    2300018: yycket
+    2300020: eye01
+    2300022: eye02
+    2300024: eye03
+    2300026: eye04
+    2300028: rottenstuff1
+    2300030: rottenstuff2
+    2300032: rottenstuff3
+    2300034: rottenstuff4
+    2300036: Rycket
     3300000: platform01
     3300002: pyramid
     3300004: rooms
     3300006: platform02_floating
+    3300008: platform03_rycketplacement
+    3300010: Rycket_holder01
+    3300012: Rycket_holder02
+    3300014: Rycket_holder03
+    3300016: Rycket_holder04
+    3300018: yycket
+    3300020: eye01
+    3300022: eye02
+    3300024: eye03
+    3300026: eye04
+    3300028: rottenstuff1
+    3300030: rottenstuff2
+    3300032: rottenstuff3
+    3300034: rottenstuff4
+    3300036: Rycket
     4300000: rooms
     4300002: pyramid
     4300004: platform01
     4300006: platform02_floating
+    4300008: yycket
+    4300010: platform03_rycketplacement
+    4300012: Rycket_holder01
+    4300014: Rycket_holder02
+    4300016: Rycket_holder04
+    4300018: Rycket_holder03
+    4300020: Rycket
+    4300022: eye01
+    4300024: eye02
+    4300026: eye03
+    4300028: eye04
+    4300030: rottenstuff1
+    4300032: rottenstuff2
+    4300034: rottenstuff3
+    4300036: rottenstuff4
     9500000: //RootNode
   materials:
     importMaterials: 1
