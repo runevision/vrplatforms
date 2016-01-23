@@ -22,8 +22,10 @@ public class Hero : MonoBehaviour {
 	void Update () {
 		RaycastHit hit;		
 		
+		int layermask = 1 << LayerMask.NameToLayer("LevelGeometry") | 1 << LayerMask.NameToLayer("Crystal");
+		
 		//geometry ray cast
-		if (Physics.Raycast(transform.position, transform.forward, out hit, 1000f, 1 << LayerMask.NameToLayer("LevelGeometry"))) {
+		if (Physics.Raycast(transform.position, transform.forward, out hit, 1000f, layermask)) {
 			LookAtTransform.position = hit.point;
 		}
 		
