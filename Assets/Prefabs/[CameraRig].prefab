@@ -159,6 +159,7 @@ GameObject:
   - 33: {fileID: 3322444}
   - 114: {fileID: 11482596}
   - 114: {fileID: 11479796}
+  - 114: {fileID: 11493952}
   m_Layer: 0
   m_Name: '[CameraRig]'
   m_TagString: Untagged
@@ -560,6 +561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cecde3a709dd1e4bb093deb53b0326c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  duration: 2
 --- !u!114 &11423548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -738,6 +740,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scale: 1.5
   drawOverlay: 1
+--- !u!114 &11493952
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 199728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77e7cd0a9137ac84cade107d2d456d44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!119 &11944040
 Projector:
   m_ObjectHideFlags: 1
