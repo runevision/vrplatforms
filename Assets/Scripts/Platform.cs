@@ -147,7 +147,8 @@ public class Platform : MonoBehaviour {
 			return;
 
 		DrawEnd (endA, markerMaterialA);
-		DrawEnd (endB, markerMaterialB);
+		if (endB.position != endA.position)
+			DrawEnd (endB, markerMaterialB);
 
 		GL.PushMatrix ();
 		// Draw line
@@ -182,16 +183,16 @@ public class Platform : MonoBehaviour {
 			float v2 = 1/3f * (tileY + 2);
 
 			GL.TexCoord2 (u1, v2);
-			GL.Vertex (new Vector3 (-1, 0,  1) * halfSize);
+			GL.Vertex (new Vector3 (-1, 0.01f,  1) * halfSize);
 
 			GL.TexCoord2 (u2, v2);
-			GL.Vertex (new Vector3 ( 1, 0,  1) * halfSize);
+			GL.Vertex (new Vector3 ( 1, 0.01f,  1) * halfSize);
 
 			GL.TexCoord2 (u2, v1);
-			GL.Vertex (new Vector3 ( 1, 0, -1) * halfSize);
+			GL.Vertex (new Vector3 ( 1, 0.01f, -1) * halfSize);
 
 			GL.TexCoord2 (u1, v1);
-			GL.Vertex (new Vector3 (-1, 0, -1) * halfSize);
+			GL.Vertex (new Vector3 (-1, 0.01f, -1) * halfSize);
 		}
 		GL.End ();
 
