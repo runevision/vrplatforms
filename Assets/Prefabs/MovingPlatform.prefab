@@ -9,7 +9,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 479088}
   - 114: {fileID: 11440346}
-  - 82: {fileID: 8275608}
   - 198: {fileID: 19894728}
   - 199: {fileID: 19942234}
   - 82: {fileID: 8223600}
@@ -43,6 +42,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 451514}
+  - 82: {fileID: 8258550}
   m_Layer: 0
   m_Name: platform_floating
   m_TagString: Untagged
@@ -266,12 +266,12 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!82 &8275608
+--- !u!82 &8258550
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 111560}
+  m_GameObject: {fileID: 156084}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -364,7 +364,7 @@ MonoBehaviour:
   markerMaterialB: {fileID: 2100000, guid: 637efb586023245e9a3df6cf620462b1, type: 2}
   acceleration: 10
   maxSpeed: 200
-  stepAudio: {fileID: 8275608}
+  stepAudio: {fileID: 8258550}
 --- !u!198 &19894728
 ParticleSystem:
   m_ObjectHideFlags: 1
