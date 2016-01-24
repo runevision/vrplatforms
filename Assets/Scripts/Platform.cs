@@ -75,6 +75,8 @@ public class Platform : MonoBehaviour {
                 else
                 {
                     velocity += acceleration * Time.deltaTime;
+                    if (velocity > maxSpeed)
+                        velocity = maxSpeed;
                     distance += velocity * Time.deltaTime;
                     float totdistance = Vector3.Distance(endA.position, endB.position);
                     lerp = distance / totdistance;

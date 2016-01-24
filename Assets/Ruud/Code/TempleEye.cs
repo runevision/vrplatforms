@@ -37,15 +37,15 @@ public class TempleEye : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//_hero = GameObject.FindObjectOfType<Hero>();
-		
 		_laser = GetComponentInChildren<LaserBeam>();
 		_eyeRenderer = GetComponent<MeshRenderer>();
 		_initialEyeRotation = transform.localRotation;
 		_areaOfEffect = GetComponentInChildren<AreaOfEffect>();
 		
+		_areaOfEffect.Triggered += ChargeLaser;
+		
 		IrisColor = DeactivatedColor;
 		EnableLaser(false);
-		//StartSearchInterval();
 	}
 	
 	public void HeroLooking(bool aLooking) {
@@ -54,16 +54,19 @@ public class TempleEye : MonoBehaviour {
 		
 		_heroIsLooking = aLooking;
 		
-		if (_heroIsLooking){
-			//Debug.Log(name + " hero is looking");
+		if (_heroIsLooking) {
 			ChargeLaser();
-		}else {
-			//Debug.Log(name + " hero is not looking");
+		} else {
 			CancelLaserCharge();
 			StartSearchInterval();
 		}
 		
 		CancelCurrentTween();
+	}
+	
+	protected void HeroInRange() {
+		HeroLooking(true);
+		ChargeLaser();
 	}
 	
 	protected void CancelLaserCharge() {
@@ -193,8 +196,8 @@ public class TempleEye : MonoBehaviour {
 			if (_laser.Enabled && _followHeroGaze && Physics.Raycast(transform.position, transform.forward, out hit, 100f, 1 << LayerMask.NameToLayer("Crystal"))) {
 				Crystal theCristal = hit.collider.GetComponent<Crystal>();
 				
-				if (_crystal != null) {
-					if (_crystal.AddEye(this)) {
+				if (theCristal != null) {
+					if (theCristal.AddEye(this)) {
 						_followHeroGaze = false;
 						_crystal = theCristal;
 					}
@@ -213,7 +216,7 @@ public class TempleEye : MonoBehaviour {
 		if (_target) {
 			Vector3 dir = _target.position - transform.position;
 			Quaternion lookAtRotation = Quaternion.LookRotation(dir, _hero.transform.up);
-			transform.rotation = Quaternion.Slerp(transform.rotation, lookAtRotation, 4.0f * Time.deltaTime);
+			transform.rotation = Quaternion.Slerp(transform.rotation, lookAtRotation, 0.5f * Time.deltaTime);
 		}
 	}
 	
