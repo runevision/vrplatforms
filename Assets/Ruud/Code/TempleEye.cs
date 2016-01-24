@@ -182,7 +182,7 @@ public class TempleEye : MonoBehaviour {
 	void Update () {
 		Transform _target = null;
 		
-		if (_followHeroGaze && _crystal == null) {
+		if (false && _followHeroGaze && _crystal == null) { // TODO Crystal does not exist anymore so the below gives nullpointer exception, I think... //BOLL
 			_target = _hero.LookAtTransform;
 				
 			//check if you hit a crystal:
