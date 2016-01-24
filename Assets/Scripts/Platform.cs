@@ -111,14 +111,19 @@ public class Platform : MonoBehaviour {
             {
                 if (!particlesSpawned)
                 { 
-                    particles.Emit(100);
+                    particles.Play();
                     particlesSpawned = true;
                 }
                 lerp = pauses % 2;
+                if (Time.time - timer > localDuration + 0.2f)
+                {
+                    particles.Stop();
+                }
                 if (Time.time - timer > localDuration + Controller.instance.pause)
                 {
                     timer += localDuration + Controller.instance.pause;
                     pauses++;
+                    particles.Stop();
                     particlesSpawned = false;
                 }
             }
