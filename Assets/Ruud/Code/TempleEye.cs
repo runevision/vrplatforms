@@ -46,7 +46,6 @@ public class TempleEye : MonoBehaviour {
 		
 		IrisColor = DeactivatedColor;
 		EnableLaser(false);
-		//StartSearchInterval();
 	}
 	
 	public void HeroLooking(bool aLooking) {
@@ -197,8 +196,8 @@ public class TempleEye : MonoBehaviour {
 			if (_laser.Enabled && _followHeroGaze && Physics.Raycast(transform.position, transform.forward, out hit, 100f, 1 << LayerMask.NameToLayer("Crystal"))) {
 				Crystal theCristal = hit.collider.GetComponent<Crystal>();
 				
-				if (_crystal != null) {
-					if (_crystal.AddEye(this)) {
+				if (theCristal != null) {
+					if (theCristal.AddEye(this)) {
 						_followHeroGaze = false;
 						_crystal = theCristal;
 					}
