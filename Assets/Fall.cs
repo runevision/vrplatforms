@@ -6,7 +6,7 @@ public class Fall : MonoBehaviour {
     private bool falling = false;
     private float velocity = 0;
     [Range(0, 20)]
-    private float acceleration = 10f;
+    public float acceleration = 10f;
     private float maxVelocity = 10;
 	
 	// Update is called once per frame
@@ -18,7 +18,7 @@ public class Fall : MonoBehaviour {
             if(velocity >= maxVelocity)
                 velocity = maxVelocity;
             Vector3 pos = rig.transform.position;
-            pos.y -= velocity;
+            pos.y -= velocity * Time.deltaTime;
             rig.transform.position = pos;
         }
 	}
