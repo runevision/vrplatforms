@@ -5,7 +5,7 @@ using Rucrede;
 //[ExecuteInEditMode]
 public class TempleEye : MonoBehaviour {
 
-	protected Hero _hero;
+	public Hero _hero;
 	protected AudioSource _hypnoAudio;
 	protected LaserBeam _laser;
 	protected MeshRenderer _eyeRenderer;
@@ -36,7 +36,8 @@ public class TempleEye : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		_hero = GameObject.FindObjectOfType<Hero>();
+		//_hero = GameObject.FindObjectOfType<Hero>();
+		
 		_laser = GetComponentInChildren<LaserBeam>();
 		_eyeRenderer = GetComponent<MeshRenderer>();
 		_initialEyeRotation = transform.localRotation;
@@ -54,10 +55,10 @@ public class TempleEye : MonoBehaviour {
 		_heroIsLooking = aLooking;
 		
 		if (_heroIsLooking){
-			Debug.Log(name + " hero is looking");
+			//Debug.Log(name + " hero is looking");
 			ChargeLaser();
 		}else {
-			Debug.Log(name + " hero is not looking");
+			//Debug.Log(name + " hero is not looking");
 			CancelLaserCharge();
 			StartSearchInterval();
 		}
@@ -77,16 +78,18 @@ public class TempleEye : MonoBehaviour {
 		DischargeLaser();
 	}
 
+
+	//TODO make this work with Bastian's new eyes.
 	public Color IrisColor {
 		get {
-			if (_eyeRenderer == null){
-				return Color.green;
-			}
+			//if (_eyeRenderer == null){
+			//	return Color.green;
+			//}
 		
-			return _eyeRenderer.material.GetColor("_Color");
+			return Color.red; // _eyeRenderer.material.GetColor("_Color");
 		}
 		set{
-			_eyeRenderer.material.SetColor("_Color", value);
+			//_eyeRenderer.material.SetColor("_Color", value);
 		}
 	}
 	
@@ -182,7 +185,7 @@ public class TempleEye : MonoBehaviour {
 	void Update () {
 		Transform _target = null;
 		
-		if (false && _followHeroGaze && _crystal == null) { // TODO Crystal does not exist anymore so the below gives nullpointer exception, I think... //BOLL
+		if (_followHeroGaze && _crystal == null) {
 			_target = _hero.LookAtTransform;
 				
 			//check if you hit a crystal:

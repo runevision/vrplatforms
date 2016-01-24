@@ -20,7 +20,9 @@ public class Crystal : MonoBehaviour {
 	void Start () {
 		_renderer = GetComponentInChildren<MeshRenderer>();
 		_cling = GetComponent<AudioSource>();
-		_renderer.material = DeactivatedMaterial;
+		
+		if (DeactivatedMaterial != null)
+			_renderer.material = DeactivatedMaterial;
 	}
 	
 	public bool AddEye(TempleEye eye) {		
@@ -37,7 +39,9 @@ public class Crystal : MonoBehaviour {
 		if (_eyes.Count >= EyesRequired) {	
 			if (!_activated) { 
 				_activated = true;
-				_renderer.material = ActivatedMaterial;
+				if (ActivatedMaterial != null)
+					_renderer.material = ActivatedMaterial;
+					
 				if (Activated != null)
 					Activated.Invoke();	
 			}
