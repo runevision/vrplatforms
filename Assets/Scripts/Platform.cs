@@ -31,13 +31,23 @@ public class Platform : MonoBehaviour {
     public float maxSpeed = 200;
     private float velocity = 0;
     private float distance = 0;
+    private bool particlesSpawned = false;
 
     public AudioSource stepAudio;
+    public ParticleSystem particles;
 
 	// Use this for initialization
 	void Start () {
 		if (Application.isPlaying)
-			platform.gameObject.SetActive (true);
+        {
+			platform.gameObject.SetActive(true);
+
+            //TODO: Spawn particle system.
+			if (particles != null) {
+				particles = (ParticleSystem)Instantiate(particles, platform.position, Quaternion.Euler(90,0,0));
+           	 	particles.transform.parent = platform;
+           	 }
+        }
 	}
 
     // Update is called once per frame
@@ -99,16 +109,27 @@ public class Platform : MonoBehaviour {
             }
             else
             {
+                if (!particlesSpawned)
+                { 
+                    particles.Emit(100);
+                    particlesSpawned = true;
+                }
                 lerp = pauses % 2;
                 if (Time.time - timer > localDuration + Controller.instance.pause)
                 {
                     timer += localDuration + Controller.instance.pause;
                     pauses++;
+                    particlesSpawned = false;
                 }
             }
             platform.position = Vector3.Lerp(endA.position, endB.position, lerp);
         }
     }
+
+    /*void OnApplicationQuit()
+    {
+        Destroy(particles);
+    }*/
 
 	void OnRenderObject () {
 		if (Camera.current.tag == "MainCamera")
@@ -175,7 +196,7 @@ public class Platform : MonoBehaviour {
 
     public void StepOnto () {
         RigMover.instance.SetPlatform (this);
-        GetComponentInChildren<Renderer>().material.color = new Color (1.2f, 1.2f, 1.2f);
+        GetComponentInChildren<MeshRenderer>().material.color = new Color (1.2f, 1.2f, 1.2f);
 
         if(onlyOnce || rocket)
             StartMoving();
@@ -185,6 +206,6 @@ public class Platform : MonoBehaviour {
     }
 
     public void StepOff () {
-    	
+        GetComponentInChildren<MeshRenderer>().material.color = Color.white;
     }
 }
