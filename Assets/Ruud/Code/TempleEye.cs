@@ -37,11 +37,12 @@ public class TempleEye : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//_hero = GameObject.FindObjectOfType<Hero>();
-		
 		_laser = GetComponentInChildren<LaserBeam>();
 		_eyeRenderer = GetComponent<MeshRenderer>();
 		_initialEyeRotation = transform.localRotation;
 		_areaOfEffect = GetComponentInChildren<AreaOfEffect>();
+		
+		_areaOfEffect.Triggered += ChargeLaser;
 		
 		IrisColor = DeactivatedColor;
 		EnableLaser(false);
@@ -54,16 +55,19 @@ public class TempleEye : MonoBehaviour {
 		
 		_heroIsLooking = aLooking;
 		
-		if (_heroIsLooking){
-			//Debug.Log(name + " hero is looking");
+		if (_heroIsLooking) {
 			ChargeLaser();
-		}else {
-			//Debug.Log(name + " hero is not looking");
+		} else {
 			CancelLaserCharge();
 			StartSearchInterval();
 		}
 		
 		CancelCurrentTween();
+	}
+	
+	protected void HeroInRange() {
+		HeroLooking(true);
+		ChargeLaser();
 	}
 	
 	protected void CancelLaserCharge() {
