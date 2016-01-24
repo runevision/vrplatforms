@@ -6,10 +6,6 @@ public class PlatformDetector : MonoBehaviour {
     public GameObject playerHead;
 
     private GameObject oldPlatform;
-
-	// Use this for initialization
-	void Start () {
-    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -17,7 +13,7 @@ public class PlatformDetector : MonoBehaviour {
         Vector3 rayOrigin = playerHead.transform.position;
         Vector3 rayOrientation = Vector3.down;
         Debug.DrawRay(rayOrigin, rayOrientation, Color.red);
-        if (Physics.Raycast(rayOrigin, rayOrientation, out hit))
+        if (Physics.SphereCast(rayOrigin, 0.5f, rayOrientation, out hit))
         {
             // If overPlatform == false or newPlatform != oldPlatform, trigger new platform event.
             // 
@@ -36,6 +32,10 @@ public class PlatformDetector : MonoBehaviour {
                     platform.StartMoving();
                 }
             }
+        }
+        else if (oldPlatform != null) {
+            OnTrigger.instance.Die ();
+            enabled = false;
         }
     }
 }

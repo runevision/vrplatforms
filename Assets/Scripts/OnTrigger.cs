@@ -4,6 +4,14 @@ using System.Collections;
 
 public class OnTrigger : MonoBehaviour {
 
+	public static OnTrigger instance;
+
+	bool dead = false;
+
+	void OnEnable () {
+		instance = this;
+	}
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer != LayerMask.NameToLayer("Death"))
@@ -11,17 +19,27 @@ public class OnTrigger : MonoBehaviour {
         
         Debug.Log("Collision enter");
 
-        Renderer rend = transform.Find("inverted_cube").GetComponent<Renderer>();
+		AudioSource audio = GetComponent<AudioSource>();
+        audio.Play();
+
+        Die ();
+    }
+
+    public void Die () {
+    	if (dead)
+    		return;
+
+    	dead = true;
+
+		Invoke("Reload", 3);
+
+		Renderer rend = transform.Find("inverted_cube").GetComponent<Renderer>();
         rend.enabled = true;
         rend.material.color = Vector4.zero;
         transform.Find("inverted_cube").GetComponent<Fade>().StartFade();
 
-        AudioSource audio = GetComponent<AudioSource>();
-        audio.Play();
-
         RigMover.instance.SetPlatform(null);
 
-        Invoke("Reload", 3);
         Transform rig = transform.parent.transform;
         rig.GetComponent<Fall>().StartFalling();
     }
