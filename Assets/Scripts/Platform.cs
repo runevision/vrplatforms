@@ -17,6 +17,7 @@ public class Platform : MonoBehaviour {
     [Range(2, 16)]
     public float duration = 2;
     public bool onlyOnce;
+    public bool rocket;
 
 	public Material markerMaterialA;
 	public Material markerMaterialB;
@@ -24,6 +25,12 @@ public class Platform : MonoBehaviour {
     private float timer = 0;
     private int pauses = 0;
     private bool start = false;
+    [Range(0, 100)]
+    public float acceleration = 10;
+    [Range(0, 500)]
+    public float maxSpeed = 200;
+    private float velocity = 0;
+    private float distance = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -43,7 +50,7 @@ public class Platform : MonoBehaviour {
         if (!platform.gameObject.activeInHierarchy)
             return;
 
-        if (onlyOnce)
+        if (onlyOnce || rocket)
         {
             if (start)
             {
@@ -51,13 +58,24 @@ public class Platform : MonoBehaviour {
                     timer = Time.time;
 
                 float lerp;
-                if (Time.time - timer < localDuration)
-                {
-                    lerp = Mathf.Cos((Time.time - timer) * Mathf.PI * 2 / (localDuration * 2) + Mathf.PI) * 0.5f + 0.5f;
+
+                if(onlyOnce)
+                { 
+                    if (Time.time - timer < localDuration)
+                    {
+                        lerp = Mathf.Cos((Time.time - timer) * Mathf.PI * 2 / (localDuration * 2) + Mathf.PI) * 0.5f + 0.5f;
+                    }
+                    else
+                    {
+                        lerp = 1;
+                    }
                 }
                 else
                 {
-                    lerp = 1;
+                    velocity += acceleration * Time.deltaTime;
+                    distance += velocity * Time.deltaTime;
+                    float totdistance = Vector3.Distance(endA.position, endB.position);
+                    lerp = distance / totdistance;
                 }
 
                 platform.position = Vector3.Lerp(endA.position, endB.position, lerp);
