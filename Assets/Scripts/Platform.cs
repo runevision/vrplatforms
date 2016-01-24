@@ -33,6 +33,8 @@ public class Platform : MonoBehaviour {
     private float distance = 0;
     private bool particlesSpawned = false;
 
+    private Color origColor;
+
     public AudioSource stepAudio;
 	public AudioSource impactAudio;
     public ParticleSystem particles;
@@ -48,6 +50,8 @@ public class Platform : MonoBehaviour {
 				particles = (ParticleSystem)Instantiate(particles, platform.position, Quaternion.Euler(90,0,0));
            	 	particles.transform.parent = platform;
            	 }
+
+			origColor = GetComponentInChildren<MeshRenderer>().material.color;
         }
 	}
 
@@ -208,7 +212,7 @@ public class Platform : MonoBehaviour {
 
     public void StepOnto () {
         RigMover.instance.SetPlatform (this);
-        GetComponentInChildren<MeshRenderer>().material.color = new Color (1.2f, 1.2f, 1.2f);
+		GetComponentInChildren<MeshRenderer>().material.color = new Color (origColor.r * 1.2f, origColor.g * 1.2f, origColor.b * 1.2f, origColor.a);
 
         if(onlyOnce || rocket)
             StartMoving();
@@ -218,6 +222,6 @@ public class Platform : MonoBehaviour {
     }
 
     public void StepOff () {
-        GetComponentInChildren<MeshRenderer>().material.color = Color.white;
+		GetComponentInChildren<MeshRenderer>().material.color = origColor;
     }
 }
