@@ -4,6 +4,8 @@ using System.Collections;
 public class Fade : MonoBehaviour {
 
     private bool fade = false;
+    [Range(0,3)]
+    public float duration = 2.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -15,9 +17,8 @@ public class Fade : MonoBehaviour {
 	    if(fade)
         {
             Color color = GetComponent<Renderer>().material.color;
-            color.a += 0.01f;
+            color.a += Time.deltaTime/duration;
             GetComponent<Renderer>().material.color = color;
-            Debug.Log("Alpha is " + color.a);
         }
 	}
 

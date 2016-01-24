@@ -13,7 +13,7 @@ public class Fall : MonoBehaviour {
         if (falling)
         {
             Transform rig = GetComponent<Transform>();
-            velocity += acceleration;
+            velocity += acceleration*Time.deltaTime;
             if(velocity >= maxVelocity)
                 velocity = maxVelocity;
             Vector3 pos = rig.transform.position;
