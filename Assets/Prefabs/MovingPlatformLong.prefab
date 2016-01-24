@@ -9,7 +9,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 436556}
   - 114: {fileID: 11437462}
-  - 82: {fileID: 8267908}
   - 198: {fileID: 19832328}
   - 199: {fileID: 19989248}
   - 82: {fileID: 8299636}
@@ -46,6 +45,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 439020}
+  - 82: {fileID: 8257578}
   m_Layer: 0
   m_Name: platform_floating
   m_TagString: Untagged
@@ -192,12 +192,12 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.75, y: 0.1, z: 0.75}
   m_Center: {x: 0, y: -0.05, z: 0}
---- !u!82 &8267908
+--- !u!82 &8257578
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 101478}
+  m_GameObject: {fileID: 140648}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -364,7 +364,7 @@ MonoBehaviour:
   markerMaterialB: {fileID: 2100000, guid: 637efb586023245e9a3df6cf620462b1, type: 2}
   acceleration: 10
   maxSpeed: 200
-  stepAudio: {fileID: 8267908}
+  stepAudio: {fileID: 8257578}
 --- !u!198 &19832328
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -1915,7 +1915,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: stepAudio
       value: 
-      objectReference: {fileID: 8267908}
+      objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Volume
       value: 0.1
