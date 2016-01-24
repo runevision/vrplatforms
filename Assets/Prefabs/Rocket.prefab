@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 436556}
   - 114: {fileID: 11437462}
   - 82: {fileID: 8246566}
+  - 114: {fileID: 11490198}
   m_Layer: 0
   m_Name: Rocket
   m_TagString: Untagged
@@ -210,7 +211,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 337938e90b1d33f4f83e2389aa0db310, type: 2}
+  - {fileID: 2100000, guid: 109785c978d0147449aafcab7728ec59, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -338,7 +339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileX: 0
-  tileY: -1
+  tileY: 0
   endA: {fileID: 409396}
   endB: {fileID: 422452}
   platform: {fileID: 439020}
@@ -351,6 +352,20 @@ MonoBehaviour:
   acceleration: 10
   maxSpeed: 200
   stepAudio: {fileID: 0}
+  impactAudio: {fileID: 0}
+  particles: {fileID: 0}
+--- !u!114 &11490198
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 101478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b4e43f432d654d61899ee3055aaa0c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsReadyForLaunch: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

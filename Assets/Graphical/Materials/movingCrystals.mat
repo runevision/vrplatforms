@@ -6,10 +6,10 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Crystals
+  m_Name: movingCrystals
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _NORMALMAP
-  m_LightmapFlags: 5
+  m_ShaderKeywords: _EMISSION _NORMALMAP
+  m_LightmapFlags: 2
   m_CustomRenderQueue: -1
   stringTagMap: {}
   m_SavedProperties:
@@ -20,7 +20,7 @@ Material:
           name: _MainTex
         second:
           m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 0.1}
+          m_Scale: {x: 60, y: 0.2}
           m_Offset: {x: 0, y: 0}
       data:
         first:
@@ -55,7 +55,7 @@ Material:
           name: _EmissionMap
         second:
           m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 0.1}
+          m_Scale: {x: 60, y: 0.2}
           m_Offset: {x: 0, y: 0}
       data:
         first:
@@ -102,11 +102,11 @@ Material:
       data:
         first:
           name: _Glossiness
-        second: 0.5
+        second: 0.593
       data:
         first:
           name: _BumpScale
-        second: 0.2
+        second: 0.24
       data:
         first:
           name: _OcclusionStrength
@@ -126,13 +126,13 @@ Material:
       data:
         first:
           name: _Metallic
-        second: 0
+        second: 0.083
     m_Colors:
       data:
         first:
           name: _EmissionColor
-        second: {r: 0, g: 0, b: 0, a: 1}
+        second: {r: 0.15491891, g: 0, b: 0.3455882, a: 1}
       data:
         first:
           name: _Color
-        second: {r: 0.54536116, g: 0.9632353, b: 0.9286525, a: 1}
+        second: {r: 0.28824425, g: 0.52205884, b: 0.1535467, a: 1}
