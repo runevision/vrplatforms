@@ -11,7 +11,7 @@ GameObject:
   - 198: {fileID: 19879836}
   - 199: {fileID: 19992532}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: Dust Motes Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -211,7 +211,7 @@ Transform:
   m_GameObject: {fileID: 151370}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071067}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7, y: 7, z: 7}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 478626}
   m_RootOrder: 2
