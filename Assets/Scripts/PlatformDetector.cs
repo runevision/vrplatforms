@@ -27,7 +27,7 @@ public class PlatformDetector : MonoBehaviour {
                 if (oldPlatform)
                     oldPlatform.GetComponent<Renderer>().material.color = Color.white;
                 oldPlatform = newPlatform;
-                if(platform.onlyOnce)
+                if(platform.onlyOnce || platform.rocket)
                 {
                     platform.StartMoving();
                 }
