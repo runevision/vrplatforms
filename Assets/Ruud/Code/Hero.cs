@@ -31,6 +31,7 @@ public class Hero : MonoBehaviour {
 		}
 		
 		//eyes ray cast
+		/*
 		if (Physics.Raycast(transform.position, transform.forward, out hit, HeroEyeControlRange, 1 << LayerMask.NameToLayer("TempleEye"))) {
 			eyeFocussedAt = hit.collider.GetComponent<TempleEye>();
 			Debug.Log("found eye: " + eyeFocussedAt.name);	
@@ -44,7 +45,7 @@ public class Hero : MonoBehaviour {
 			if (eye != eyeFocussedAt) {
 				eye.HeroLooking(false);
 			}	
-		}
+		}*/
 	}
 	
 	
