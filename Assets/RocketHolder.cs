@@ -7,6 +7,7 @@ public class RocketHolder : MonoBehaviour {
 
 	public Transform MovePosition;
 	public UnityEvent WhenRocketHolderInPlace;
+	public float MoveDownDuration = 2.0f;
 	
 	protected AudioSource _moveDownAudio;
 
@@ -24,7 +25,7 @@ public class RocketHolder : MonoBehaviour {
 		if (_moveDownAudio)
 			_moveDownAudio.Play();
 			
-		Tween.to(transform.position, MovePosition.position, 5.0f, Tween.EaseType.easeInOutSine,
+		Tween.to(transform.position, MovePosition.position, MoveDownDuration, Tween.EaseType.easeInOutSine,
 			(Tween t) => {transform.position = (Vector3) t.Value;},
 			(Tween t) => { RocketHolderInPlace();}
 		);

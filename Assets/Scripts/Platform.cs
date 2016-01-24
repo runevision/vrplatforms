@@ -43,8 +43,10 @@ public class Platform : MonoBehaviour {
 			platform.gameObject.SetActive(true);
 
             //TODO: Spawn particle system.
-            particles = (ParticleSystem)Instantiate(particles, platform.position, Quaternion.Euler(90,0,0));
-            particles.transform.parent = platform;
+			if (particles != null) {
+				particles = (ParticleSystem)Instantiate(particles, platform.position, Quaternion.Euler(90,0,0));
+           	 	particles.transform.parent = platform;
+           	 }
         }
 	}
 
