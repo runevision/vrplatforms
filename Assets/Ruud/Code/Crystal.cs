@@ -28,10 +28,9 @@ public class Crystal : MonoBehaviour {
 	public bool AddEye(TempleEye eye) {		
 		if (_eyes.Count < EyesRequired) {
 			_eyes.Add(eye);	
-		
-		if (_cling != null)
-			_cling.Play();
-		
+			if (_cling != null)
+				_cling.Play();
+					
 		} else {
 			return false;
 		}
