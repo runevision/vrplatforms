@@ -7,6 +7,7 @@ using System.Linq;
 public class Hero : MonoBehaviour {
 
 	public Transform LookAtTransform;
+	public float HeroEyeControlRange = 15f;
 
 	protected TempleEye eyeFocussedAt = null;
 
@@ -30,7 +31,7 @@ public class Hero : MonoBehaviour {
 		}
 		
 		//eyes ray cast
-		if (Physics.Raycast(transform.position, transform.forward, out hit, 1000f, 1 << LayerMask.NameToLayer("TempleEye"))) {
+		if (Physics.Raycast(transform.position, transform.forward, out hit, HeroEyeControlRange, 1 << LayerMask.NameToLayer("TempleEye"))) {
 			eyeFocussedAt = hit.collider.GetComponent<TempleEye>();
 			Debug.Log("found eye: " + eyeFocussedAt.name);	
 			eyeFocussedAt.HeroLooking(true);
@@ -49,7 +50,7 @@ public class Hero : MonoBehaviour {
 	
 	
 	void OnDrawGizmos() {	
-		Vector3 forward = transform.forward * 100f;
+		Vector3 forward = transform.forward * HeroEyeControlRange;
 		Gizmos.color = Color.green;
 		Gizmos.DrawRay(transform.position, forward);
 	}

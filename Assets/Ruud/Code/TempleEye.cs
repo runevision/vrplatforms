@@ -37,7 +37,6 @@ public class TempleEye : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//_hero = GameObject.FindObjectOfType<Hero>();
-		Debug.Log("Hero: " + _hero.name);
 		
 		_laser = GetComponentInChildren<LaserBeam>();
 		_eyeRenderer = GetComponent<MeshRenderer>();
