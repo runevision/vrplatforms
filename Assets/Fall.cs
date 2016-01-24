@@ -5,7 +5,8 @@ public class Fall : MonoBehaviour {
 
     private bool falling = false;
     private float velocity = 0;
-    private float acceleration = 0.01f;
+    [Range(0, 20)]
+    private float acceleration = 10f;
     private float maxVelocity = 10;
 	
 	// Update is called once per frame
