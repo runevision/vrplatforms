@@ -174,7 +174,7 @@ public class Platform : MonoBehaviour {
     public void StepOnto () {
         RigMover.instance.SetPlatform (this);
         GetComponent<Renderer>().material.color = new Color (1.2f, 1.2f, 1.2f);
-        if(onlyOnce)
+		if(onlyOnce || rocket)
             StartMoving();
     }
 
