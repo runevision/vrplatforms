@@ -25,6 +25,8 @@ public class Platform : MonoBehaviour {
     private int pauses = 0;
     private bool start = false;
 
+    public AudioSource stepAudio;
+
 	// Use this for initialization
 	void Start () {
 		if (Application.isPlaying)
@@ -147,5 +149,16 @@ public class Platform : MonoBehaviour {
     public void StartMoving()
     {
         start = true;
+    }
+
+    public void StepOnto () {
+        RigMover.instance.SetPlatform (this);
+        GetComponent<Renderer>().material.color = new Color (1.2f, 1.2f, 1.2f);
+        if(onlyOnce)
+            StartMoving();
+    }
+
+    public void StepOff () {
+    	
     }
 }
