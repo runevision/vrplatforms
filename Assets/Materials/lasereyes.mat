@@ -137,7 +137,7 @@ Material:
       data:
         first:
           name: _panning
-        second: 0.17
+        second: 0
       data:
         first:
           name: _metallic
@@ -153,9 +153,9 @@ Material:
         second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
-          name: _color2
-        second: {r: 1, g: 0.058823526, b: 0.058823526, a: 1}
-      data:
-        first:
           name: _color1
         second: {r: 0.02287014, g: 0, b: 0.30147058, a: 1}
+      data:
+        first:
+          name: _color2
+        second: {r: 1, g: 0.058823526, b: 0.058823526, a: 1}

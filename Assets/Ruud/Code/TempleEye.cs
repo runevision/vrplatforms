@@ -15,8 +15,8 @@ public class TempleEye : MonoBehaviour {
 	protected int _eyeRotationCount = 0;
 	protected int _randomEyeRotations = 10;
 	
-	public Color DeactivatedColor = Color.green;
-	public Color ActivatedColor = Color.red;
+	public float DeactivatedChargeValue = 0f;
+	public float ActivatedChargeValue = 0.54f;
 	
 	public float SearchInterval = 0.5f;
 	public float SearchSpreadInterval = 2.0f;
@@ -44,7 +44,7 @@ public class TempleEye : MonoBehaviour {
 		
 		_areaOfEffect.Triggered += ChargeLaser;
 		
-		IrisColor = DeactivatedColor;
+		IrisCharge = DeactivatedChargeValue;
 		EnableLaser(false);
 	}
 	
@@ -93,6 +93,15 @@ public class TempleEye : MonoBehaviour {
 		}
 		set{
 			//_eyeRenderer.material.SetColor("_Color", value);
+		}
+	}
+	
+	public float IrisCharge {
+		get {
+			return _eyeRenderer.material.GetFloat("_panning");
+		}
+		set{
+			_eyeRenderer.material.SetFloat("_panning", value);
 		}
 	}
 	
@@ -151,8 +160,8 @@ public class TempleEye : MonoBehaviour {
 		if (_hypnoAudio != null)
 			_hypnoAudio.Play();
 				
-		laserChargeTween = Tween.to(IrisColor, ActivatedColor, 2.0f, Tween.EaseType.linear,
-		(Tween t) => {IrisColor = (Color)t.Value; },
+		laserChargeTween = Tween.to(IrisCharge, ActivatedChargeValue, 2.0f, Tween.EaseType.linear,
+		(Tween t) => {IrisCharge = (float)t.Value; },
 		(Tween t) => { ActivateLaser();}
 		);
 	}
@@ -162,8 +171,8 @@ public class TempleEye : MonoBehaviour {
 	}
 	
 	protected void DischargeLaser() {
-		laserChargeTween = Tween.to(IrisColor, DeactivatedColor, 1.0f, Tween.EaseType.linear,
-			(Tween t) => {IrisColor = (Color)t.Value; }
+		laserChargeTween = Tween.to(IrisCharge, DeactivatedChargeValue, 1.0f, Tween.EaseType.linear,
+			(Tween t) => {IrisCharge = (float)t.Value; }
 		);
 	}
 
