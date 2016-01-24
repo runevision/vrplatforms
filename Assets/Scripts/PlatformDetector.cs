@@ -24,7 +24,7 @@ public class PlatformDetector : MonoBehaviour {
             Platform oldPlatformComp = oldPlatform.transform.GetComponentInParent<Platform>();
             if (newPlatformComp == null)
                 return;
-
+            
             newPlatformComp.StepOnto ();
             if (oldPlatformComp)
                 oldPlatformComp.StepOff ();
