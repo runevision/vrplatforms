@@ -34,6 +34,7 @@ public class Platform : MonoBehaviour {
     private bool particlesSpawned = false;
 
     public AudioSource stepAudio;
+	public AudioSource impactAudio;
     public ParticleSystem particles;
 
 	// Use this for initialization
@@ -113,6 +114,8 @@ public class Platform : MonoBehaviour {
                 { 
                     particles.Play();
                     particlesSpawned = true;
+                    if (impactAudio)
+                    	impactAudio.Play();
                 }
                 lerp = pauses % 2;
                 if (Time.time - timer > localDuration + 0.2f)
