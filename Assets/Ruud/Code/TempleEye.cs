@@ -8,7 +8,7 @@ public class TempleEye : MonoBehaviour {
 	public Hero _hero;
 	protected AudioSource _hypnoAudio;
 	protected LaserBeam _laser;
-	protected MeshRenderer _eyeRenderer;
+	public MeshRenderer _eyeRenderer;
 	protected Quaternion _initialEyeRotation;
 	protected AreaOfEffect _areaOfEffect;
 	
@@ -38,7 +38,7 @@ public class TempleEye : MonoBehaviour {
 	void Start () {
 		//_hero = GameObject.FindObjectOfType<Hero>();
 		_laser = GetComponentInChildren<LaserBeam>();
-		_eyeRenderer = GetComponent<MeshRenderer>();
+		//_eyeRenderer = GetComponent<MeshRenderer>();
 		_initialEyeRotation = transform.localRotation;
 		_areaOfEffect = GetComponentInChildren<AreaOfEffect>();
 		

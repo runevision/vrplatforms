@@ -1288,6 +1288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hero: {fileID: 0}
+  _eyeRenderer: {fileID: 2370732}
   DeactivatedChargeValue: 0
   ActivatedChargeValue: 0.54
   SearchInterval: 0.5
@@ -1309,6 +1310,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hero: {fileID: 0}
+  _eyeRenderer: {fileID: 2398290}
   DeactivatedChargeValue: 0
   ActivatedChargeValue: 0.54
   SearchInterval: 0.5
@@ -1363,6 +1365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hero: {fileID: 0}
+  _eyeRenderer: {fileID: 2392192}
   DeactivatedChargeValue: 0
   ActivatedChargeValue: 0.54
   SearchInterval: 0.5
@@ -1406,6 +1409,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hero: {fileID: 0}
+  _eyeRenderer: {fileID: 2375836}
   DeactivatedChargeValue: 0
   ActivatedChargeValue: 0.54
   SearchInterval: 0.5
