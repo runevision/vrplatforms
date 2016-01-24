@@ -216,7 +216,7 @@ public class TempleEye : MonoBehaviour {
 		if (_target) {
 			Vector3 dir = _target.position - transform.position;
 			Quaternion lookAtRotation = Quaternion.LookRotation(dir, _hero.transform.up);
-			transform.rotation = Quaternion.Slerp(transform.rotation, lookAtRotation, 4.0f * Time.deltaTime);
+			transform.rotation = Quaternion.Slerp(transform.rotation, lookAtRotation, 0.5f * Time.deltaTime);
 		}
 	}
 	
