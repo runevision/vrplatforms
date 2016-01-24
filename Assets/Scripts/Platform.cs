@@ -54,6 +54,9 @@ public class Platform : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if (endA.position == endB.position)
+            return;
+
         float localDuration;
         if (customDuration)
             localDuration = duration;
@@ -81,6 +84,10 @@ public class Platform : MonoBehaviour {
                     else
                     {
                         lerp = 1;
+                        if (!particlesSpawned) {
+							StartCoroutine(Impact());
+							particlesSpawned = true;
+                        }
                     }
                 }
                 else
@@ -112,21 +119,14 @@ public class Platform : MonoBehaviour {
             {
                 if (!particlesSpawned)
                 { 
-                    particles.Play();
+                    StartCoroutine(Impact());
                     particlesSpawned = true;
-                    if (impactAudio)
-                    	impactAudio.Play();
                 }
                 lerp = pauses % 2;
-                if (Time.time - timer > localDuration + 0.2f)
-                {
-                    particles.Stop();
-                }
                 if (Time.time - timer > localDuration + Controller.instance.pause)
                 {
                     timer += localDuration + Controller.instance.pause;
                     pauses++;
-                    particles.Stop();
                     particlesSpawned = false;
                 }
             }
@@ -134,10 +134,13 @@ public class Platform : MonoBehaviour {
         }
     }
 
-    /*void OnApplicationQuit()
-    {
-        Destroy(particles);
-    }*/
+    IEnumerator Impact () {
+        particles.Play();
+        if (impactAudio)
+        	impactAudio.Play();
+        yield return new WaitForSeconds(0.1f);
+        particles.Stop();
+    }
 
 	void OnRenderObject () {
 		if (Camera.current.tag == "MainCamera")
