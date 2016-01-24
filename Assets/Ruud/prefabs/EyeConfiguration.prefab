@@ -342,7 +342,7 @@ Transform:
   m_GameObject: {fileID: 176054}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071067}
   m_LocalPosition: {x: 0, y: 0, z: 43.7}
-  m_LocalScale: {x: 1, y: 44.08709, z: 1}
+  m_LocalScale: {x: 0.3, y: 44.08709, z: 0.3}
   m_Children: []
   m_Father: {fileID: 461352}
   m_RootOrder: 2
@@ -354,7 +354,7 @@ Transform:
   m_GameObject: {fileID: 170078}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071067}
   m_LocalPosition: {x: 0, y: 0, z: 43.7}
-  m_LocalScale: {x: 1, y: 44.08709, z: 1}
+  m_LocalScale: {x: 0.3, y: 44.08709, z: 0.3}
   m_Children: []
   m_Father: {fileID: 492390}
   m_RootOrder: 2
@@ -366,7 +366,7 @@ Transform:
   m_GameObject: {fileID: 164594}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071067}
   m_LocalPosition: {x: 0, y: 0, z: 43.7}
-  m_LocalScale: {x: 1, y: 44.08709, z: 1}
+  m_LocalScale: {x: 0.3, y: 44.08709, z: 0.3}
   m_Children: []
   m_Father: {fileID: 466512}
   m_RootOrder: 2
@@ -378,7 +378,7 @@ Transform:
   m_GameObject: {fileID: 156446}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071067}
   m_LocalPosition: {x: -0, y: -0.15, z: 43.7}
-  m_LocalScale: {x: 1, y: 44.08709, z: 1}
+  m_LocalScale: {x: 0.3, y: 44.08709, z: 0.3}
   m_Children: []
   m_Father: {fileID: 411252}
   m_RootOrder: 2
@@ -1290,7 +1290,7 @@ MonoBehaviour:
   _hero: {fileID: 0}
   _eyeRenderer: {fileID: 2370732}
   DeactivatedChargeValue: 0
-  ActivatedChargeValue: 0.54
+  ActivatedChargeValue: 1
   SearchInterval: 0.5
   SearchSpreadInterval: 2
   FadeHeroInterval: 1
@@ -1312,7 +1312,7 @@ MonoBehaviour:
   _hero: {fileID: 0}
   _eyeRenderer: {fileID: 2398290}
   DeactivatedChargeValue: 0
-  ActivatedChargeValue: 0.54
+  ActivatedChargeValue: 1
   SearchInterval: 0.5
   SearchSpreadInterval: 2
   FadeHeroInterval: 1
@@ -1367,7 +1367,7 @@ MonoBehaviour:
   _hero: {fileID: 0}
   _eyeRenderer: {fileID: 2392192}
   DeactivatedChargeValue: 0
-  ActivatedChargeValue: 0.54
+  ActivatedChargeValue: 1
   SearchInterval: 0.5
   SearchSpreadInterval: 2
   FadeHeroInterval: 1
@@ -1411,7 +1411,7 @@ MonoBehaviour:
   _hero: {fileID: 0}
   _eyeRenderer: {fileID: 2375836}
   DeactivatedChargeValue: 0
-  ActivatedChargeValue: 0.54
+  ActivatedChargeValue: 1
   SearchInterval: 0.5
   SearchSpreadInterval: 2
   FadeHeroInterval: 1
