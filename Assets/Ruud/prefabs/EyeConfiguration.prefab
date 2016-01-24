@@ -715,13 +715,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 337938e90b1d33f4f83e2389aa0db310, type: 2}
-  - {fileID: 2100000, guid: deec980af2550c04bb1df4638eed0afd, type: 2}
-  - {fileID: 2100000, guid: 5209ef43100c83a498cd17f099201d1f, type: 2}
-  - {fileID: 2100000, guid: cd0bfd4c107dd4e478102229bb8a0574, type: 2}
-  - {fileID: 2100000, guid: 3eb9ef8842680e34c964d4a03a90e16c, type: 2}
-  - {fileID: 2100000, guid: 236390d44992c19419a401eeec4851d0, type: 2}
-  - {fileID: 2100000, guid: 6a6f9ed2bc463ee4ba7702ef562200b4, type: 2}
+  - {fileID: 2100000, guid: 9cefb171a0b8b7f41a2cafa80a8c286f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -747,13 +741,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 337938e90b1d33f4f83e2389aa0db310, type: 2}
-  - {fileID: 2100000, guid: deec980af2550c04bb1df4638eed0afd, type: 2}
-  - {fileID: 2100000, guid: 5209ef43100c83a498cd17f099201d1f, type: 2}
-  - {fileID: 2100000, guid: cd0bfd4c107dd4e478102229bb8a0574, type: 2}
-  - {fileID: 2100000, guid: 3eb9ef8842680e34c964d4a03a90e16c, type: 2}
-  - {fileID: 2100000, guid: 236390d44992c19419a401eeec4851d0, type: 2}
-  - {fileID: 2100000, guid: 6a6f9ed2bc463ee4ba7702ef562200b4, type: 2}
+  - {fileID: 2100000, guid: 9cefb171a0b8b7f41a2cafa80a8c286f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -805,13 +793,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 337938e90b1d33f4f83e2389aa0db310, type: 2}
-  - {fileID: 2100000, guid: deec980af2550c04bb1df4638eed0afd, type: 2}
-  - {fileID: 2100000, guid: 5209ef43100c83a498cd17f099201d1f, type: 2}
-  - {fileID: 2100000, guid: cd0bfd4c107dd4e478102229bb8a0574, type: 2}
-  - {fileID: 2100000, guid: 3eb9ef8842680e34c964d4a03a90e16c, type: 2}
-  - {fileID: 2100000, guid: 236390d44992c19419a401eeec4851d0, type: 2}
-  - {fileID: 2100000, guid: 6a6f9ed2bc463ee4ba7702ef562200b4, type: 2}
+  - {fileID: 2100000, guid: 9cefb171a0b8b7f41a2cafa80a8c286f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -837,13 +819,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 337938e90b1d33f4f83e2389aa0db310, type: 2}
-  - {fileID: 2100000, guid: deec980af2550c04bb1df4638eed0afd, type: 2}
-  - {fileID: 2100000, guid: 5209ef43100c83a498cd17f099201d1f, type: 2}
-  - {fileID: 2100000, guid: cd0bfd4c107dd4e478102229bb8a0574, type: 2}
-  - {fileID: 2100000, guid: 3eb9ef8842680e34c964d4a03a90e16c, type: 2}
-  - {fileID: 2100000, guid: 236390d44992c19419a401eeec4851d0, type: 2}
-  - {fileID: 2100000, guid: 6a6f9ed2bc463ee4ba7702ef562200b4, type: 2}
+  - {fileID: 2100000, guid: 9cefb171a0b8b7f41a2cafa80a8c286f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -1312,8 +1288,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hero: {fileID: 0}
-  DeactivatedColor: {r: 0, g: 1, b: 0, a: 1}
-  ActivatedColor: {r: 1, g: 0, b: 0, a: 1}
+  _eyeRenderer: {fileID: 2370732}
+  DeactivatedChargeValue: 0
+  ActivatedChargeValue: 0.54
   SearchInterval: 0.5
   SearchSpreadInterval: 2
   FadeHeroInterval: 1
@@ -1333,8 +1310,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hero: {fileID: 0}
-  DeactivatedColor: {r: 0, g: 1, b: 0, a: 1}
-  ActivatedColor: {r: 1, g: 0, b: 0, a: 1}
+  _eyeRenderer: {fileID: 2398290}
+  DeactivatedChargeValue: 0
+  ActivatedChargeValue: 0.54
   SearchInterval: 0.5
   SearchSpreadInterval: 2
   FadeHeroInterval: 1
@@ -1387,8 +1365,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hero: {fileID: 0}
-  DeactivatedColor: {r: 0, g: 1, b: 0, a: 1}
-  ActivatedColor: {r: 1, g: 0, b: 0, a: 1}
+  _eyeRenderer: {fileID: 2392192}
+  DeactivatedChargeValue: 0
+  ActivatedChargeValue: 0.54
   SearchInterval: 0.5
   SearchSpreadInterval: 2
   FadeHeroInterval: 1
@@ -1430,8 +1409,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hero: {fileID: 0}
-  DeactivatedColor: {r: 0, g: 1, b: 0, a: 1}
-  ActivatedColor: {r: 1, g: 0, b: 0, a: 1}
+  _eyeRenderer: {fileID: 2375836}
+  DeactivatedChargeValue: 0
+  ActivatedChargeValue: 0.54
   SearchInterval: 0.5
   SearchSpreadInterval: 2
   FadeHeroInterval: 1
