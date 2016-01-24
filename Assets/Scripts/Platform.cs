@@ -194,7 +194,7 @@ public class Platform : MonoBehaviour {
 
     public void StepOnto () {
         RigMover.instance.SetPlatform (this);
-        GetComponentInChildren<Renderer>().material.color = new Color (1.2f, 1.2f, 1.2f);
+        GetComponentInChildren<MeshRenderer>().material.color = new Color (1.2f, 1.2f, 1.2f);
 
         if(onlyOnce || rocket)
             StartMoving();
@@ -204,6 +204,6 @@ public class Platform : MonoBehaviour {
     }
 
     public void StepOff () {
-    	
+        GetComponentInChildren<MeshRenderer>().material.color = Color.white;
     }
 }
