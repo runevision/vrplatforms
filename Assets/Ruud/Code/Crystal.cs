@@ -42,6 +42,7 @@ public class Crystal : MonoBehaviour {
 					_renderer.material = ActivatedMaterial;
 					
 				if (Activated != null)
+					_renderer.enabled = false;
 					Activated.Invoke();	
 			}
 		}
