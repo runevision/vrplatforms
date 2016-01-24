@@ -165,5 +165,7 @@ public class Platform : MonoBehaviour {
     public void StartMoving()
     {
         start = true;
+        if(rocket)
+            GetComponent<AudioSource>().Play();
     }
 }
