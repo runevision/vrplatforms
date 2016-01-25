@@ -6,9 +6,11 @@ public class PlatformDetector : MonoBehaviour {
     public GameObject playerHead;
 
     private GameObject oldPlatform;
-    
-    // Update is called once per frame
-    void Update () {
+
+    void LateUpdate () {
+        if (RigMover.instance.transitioning)
+            return;
+
         RaycastHit hit;
         Vector3 rayOrigin = playerHead.transform.position;
         Vector3 rayOrientation = Vector3.down;
@@ -26,13 +28,6 @@ public class PlatformDetector : MonoBehaviour {
 
         if (newPlatformComp != null) {
             newPlatformComp.StepOnto ();
-            if (oldPlatform)
-            {
-                Platform oldPlatformComp = oldPlatform.transform.GetComponentInParent<Platform>();
-                if (oldPlatformComp)
-                    oldPlatformComp.StepOff();
-            }
-            
             oldPlatform = newPlatform;
         }
         else if (oldPlatform != null) {

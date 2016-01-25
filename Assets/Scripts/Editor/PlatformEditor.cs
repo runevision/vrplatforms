@@ -19,5 +19,13 @@ public class PlatformEditor : Editor {
 			Event.current.Use ();
 			SceneView.RepaintAll ();
 		}
+
+		if (Application.isPlaying) {
+			EditorGUILayout.Space();
+
+			if (GUILayout.Button("Go to this platform")) {
+				platform.StepOnto();
+			}
+		}
 	}
 }

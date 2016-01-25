@@ -96,12 +96,16 @@ public class Platform : MonoBehaviour {
                 }
                 else
                 {
+                    OnTrigger.instance.Win();
                     velocity += acceleration * Time.deltaTime;
                     if (velocity > maxSpeed)
                         velocity = maxSpeed;
                     distance += velocity * Time.deltaTime;
                     float totdistance = Vector3.Distance(endA.position, endB.position);
                     lerp = distance / totdistance;
+
+                    if (lerp >= 1)
+                    	OnTrigger.instance.FadeAndRestart();
                 }
 
                 platform.position = Vector3.Lerp(endA.position, endB.position, lerp);

@@ -6,6 +6,7 @@ public class OnTrigger : MonoBehaviour {
 
 	public static OnTrigger instance;
 
+	bool win = false;
 	bool dead = false;
 
 	void OnEnable () {
@@ -25,23 +26,31 @@ public class OnTrigger : MonoBehaviour {
         Die ();
     }
 
+    public void Win () {
+        win = true;
+    }
+
     public void Die () {
-    	if (dead)
+    	if (dead || win)
     		return;
 
     	dead = true;
-
-		Invoke("Reload", 3);
-
-		Renderer rend = transform.Find("inverted_cube").GetComponent<Renderer>();
-        rend.enabled = true;
-        rend.material.color = Vector4.zero;
-        transform.Find("inverted_cube").GetComponent<Fade>().StartFade();
 
         RigMover.instance.SetPlatform(null);
 
         Transform rig = transform.parent.transform;
         rig.GetComponent<Fall>().StartFalling();
+
+        FadeAndRestart();
+    }
+
+    public void FadeAndRestart () {
+        Renderer rend = transform.Find("inverted_cube").GetComponent<Renderer>();
+        rend.enabled = true;
+        rend.material.color = Vector4.zero;
+        transform.Find("inverted_cube").GetComponent<Fade>().StartFade();
+
+        Invoke("Reload", 3);
     }
 
     void Reload () {

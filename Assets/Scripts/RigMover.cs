@@ -14,6 +14,10 @@ public class RigMover : MonoBehaviour {
 	private Platform newPlatform;
 	private float switchStartTime = 0;
 
+	public bool transitioning {
+		get { return ((Time.time - switchStartTime) / transitionDuration) < 1; }
+	}
+
 	// Use this for initialization
 	void OnEnable () {
 		instance = this;
@@ -22,6 +26,9 @@ public class RigMover : MonoBehaviour {
 	public void SetPlatform (Platform platform) {
 		if (platform == newPlatform)
 			return;
+
+		if (oldPlatform != null)
+			oldPlatform.StepOff();
 
 		oldPlatform = newPlatform;
 		newPlatform = platform;
@@ -35,7 +42,7 @@ public class RigMover : MonoBehaviour {
 		Vector3 oldPos = GetRigPositionFromPlatform (oldPlatform);
 		Vector3 newPos = GetRigPositionFromPlatform (newPlatform);
 		transitionDuration = Vector3.Distance (oldPos, newPos) / transitionSpeed;
-		transitionDuration = Mathf.Max (transitionDuration, 0.01f);
+		transitionDuration = Mathf.Clamp (transitionDuration, 0.01f, 1);
 	}
 
 	// Update is called once per frame
