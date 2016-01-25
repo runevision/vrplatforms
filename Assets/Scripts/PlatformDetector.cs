@@ -13,18 +13,18 @@ public class PlatformDetector : MonoBehaviour {
         Vector3 rayOrigin = playerHead.transform.position;
         Vector3 rayOrientation = Vector3.down;
         Debug.DrawRay(rayOrigin, rayOrientation, Color.red);
-        if (Physics.SphereCast(rayOrigin, 0.2f, rayOrientation, out hit))
-        {
-            // If overPlatform == false or newPlatform != oldPlatform, trigger new platform event.
-            GameObject newPlatform = hit.transform.gameObject;
+
+        GameObject newPlatform = null;
+        Platform newPlatformComp = null;
+        if (Physics.SphereCast(rayOrigin, 0.2f, rayOrientation, out hit)) {
+            newPlatform = hit.transform.gameObject;
             if (newPlatform == oldPlatform)
                 return;
             
-            Platform newPlatformComp = newPlatform.transform.GetComponentInParent<Platform>();
-            
-            if (newPlatformComp == null)
-                return;
-            
+            newPlatformComp = newPlatform.transform.GetComponentInParent<Platform>();
+        }
+
+        if (newPlatformComp != null) {
             newPlatformComp.StepOnto ();
             if (oldPlatform)
             {
