@@ -79,6 +79,13 @@ Material:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _crystals
+        second:
+          m_Texture: {fileID: 2800000, guid: 7da06025063e3bb41835983d8849c4fd, type: 3}
+          m_Scale: {x: 1, y: 600}
+          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
@@ -103,7 +110,7 @@ Material:
       data:
         first:
           name: _Glossiness
-        second: 0
+        second: 1
       data:
         first:
           name: _BumpScale
@@ -127,13 +134,25 @@ Material:
       data:
         first:
           name: _Metallic
-        second: 0
+        second: 1
+      data:
+        first:
+          name: _panspeed
+        second: 16.02
     m_Colors:
       data:
         first:
           name: _EmissionColor
-        second: {r: 1, g: 0.08823532, b: 0, a: 1}
+        second: {r: 0.8897059, g: 0.2616782, b: 0.50855815, a: 1}
       data:
         first:
           name: _Color
-        second: {r: 0.9705882, g: 0.08564016, b: 0.08564016, a: 0.428}
+        second: {r: 0.42647058, g: 0.068987876, b: 0.25389293, a: 0.428}
+      data:
+        first:
+          name: _color
+        second: {r: 1, g: 0.8308824, b: 0.8308824, a: 1}
+      data:
+        first:
+          name: _emissioncolor
+        second: {r: 0.97794116, g: 0.043144446, b: 0.33325365, a: 1}

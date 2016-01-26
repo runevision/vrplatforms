@@ -85,6 +85,13 @@ Material:
           m_Texture: {fileID: 2800000, guid: a36f2e0470b54d842a3acd8117e53c89, type: 3}
           m_Scale: {x: 1, y: 0.3}
           m_Offset: {x: 0, y: -0.3}
+      data:
+        first:
+          name: _normalmap
+        second:
+          m_Texture: {fileID: 2800000, guid: 7da06025063e3bb41835983d8849c4fd, type: 3}
+          m_Scale: {x: 10, y: 2}
+          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
@@ -141,7 +148,7 @@ Material:
       data:
         first:
           name: _metallic
-        second: 1.5
+        second: 0.84
     m_Colors:
       data:
         first:
@@ -154,8 +161,8 @@ Material:
       data:
         first:
           name: _color1
-        second: {r: 0.02287014, g: 0, b: 0.30147058, a: 1}
+        second: {r: 0.0012474657, g: 0, b: 0.0039215684, a: 1}
       data:
         first:
           name: _color2
-        second: {r: 1, g: 0.058823526, b: 0.058823526, a: 1}
+        second: {r: 1, g: 0, b: 0.10344792, a: 1}

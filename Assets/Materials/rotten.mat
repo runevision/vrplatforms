@@ -117,7 +117,7 @@ Material:
       data:
         first:
           name: _BumpScale
-        second: 1
+        second: 3.2
       data:
         first:
           name: _OcclusionStrength
@@ -125,7 +125,7 @@ Material:
       data:
         first:
           name: _DetailNormalMapScale
-        second: 1
+        second: 0
       data:
         first:
           name: _UVSec
@@ -137,7 +137,7 @@ Material:
       data:
         first:
           name: _Metallic
-        second: 0.577
+        second: 0
       data:
         first:
           name: _SquashAmount
@@ -150,7 +150,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 0.19117647, g: 0.101870336, b: 0.05341696, a: 1}
+        second: {r: 0, g: 0.102941155, b: 0.043306272, a: 1}
       data:
         first:
           name: _SpecColor
