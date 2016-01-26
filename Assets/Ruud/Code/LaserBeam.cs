@@ -16,7 +16,7 @@ public class LaserBeam : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		_renderer = GetComponent<MeshRenderer>(); 
-		_audio = GetComponent<AudioSource>();
+		_audio = GetComponentInChildren<AudioSource>();
 	}
 	
 	// Update is called once per frame
