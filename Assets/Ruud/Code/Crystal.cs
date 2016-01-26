@@ -6,23 +6,18 @@ using UnityEngine.Events;
 public class Crystal : MonoBehaviour {
 
 	public int EyesRequired = 1;
-	public List<TempleEye> _eyes;		
+	public GameObject ExplosionParticleEffectPrefab;
 	public UnityEvent Activated;
+
 	protected AudioSource _cling; 
-	
+	protected List<TempleEye> _eyes;		
 	protected bool _activated = false;
 	protected MeshRenderer _renderer;
-	
-	public Material DeactivatedMaterial;
-	public Material ActivatedMaterial;
-	
+
 	// Use this for initialization
 	void Start () {
 		_renderer = GetComponentInChildren<MeshRenderer>();
 		_cling = GetComponent<AudioSource>();
-		
-		if (DeactivatedMaterial != null)
-			_renderer.material = DeactivatedMaterial;
 	}
 	
 	public bool AddEye(TempleEye eye) {		
@@ -38,20 +33,22 @@ public class Crystal : MonoBehaviour {
 		if (_eyes.Count >= EyesRequired) {	
 			if (!_activated) { 
 				_activated = true;
-				if (ActivatedMaterial != null)
-					_renderer.material = ActivatedMaterial;
-					
-				if (Activated != null)
-					_renderer.enabled = false;
-					Activated.Invoke();	
+				Explode();
+				if (Activated != null) {
+					Activated.Invoke();
+				}	
 			}
 		}
 		
 		return true;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	void Explode() {
+		_renderer.enabled = false;
+		if (ExplosionParticleEffectPrefab != null) {
+			GameObject explosionGOInstance = (GameObject)GameObject.Instantiate(ExplosionParticleEffectPrefab, transform.position,Quaternion.identity); 
+			ParticleSystem explosion = explosionGOInstance.GetComponent<ParticleSystem>();
+			explosion.Play();
+		}
 	}
 }
