@@ -18,6 +18,7 @@ public class Crystal : MonoBehaviour {
 	void Start () {
 		_renderer = GetComponentInChildren<MeshRenderer>();
 		_cling = GetComponent<AudioSource>();
+		_eyes = new List<TempleEye>();
 	}
 	
 	public bool AddEye(TempleEye eye) {		

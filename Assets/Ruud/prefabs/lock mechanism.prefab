@@ -56,21 +56,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &125158
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 473348}
-  m_Layer: 10
-  m_Name: MoveDownToThisPos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &176560
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,18 +120,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 494622}
   m_RootOrder: 1
---- !u!4 &473348
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 125158}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.268629, y: -79.9, z: 3.3946304}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 494622}
-  m_RootOrder: 4
 --- !u!4 &475042
 Transform:
   m_ObjectHideFlags: 1
@@ -173,7 +146,6 @@ Transform:
   - {fileID: 442142}
   - {fileID: 475042}
   - {fileID: 435772}
-  - {fileID: 473348}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &496382
@@ -604,7 +576,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -628,7 +600,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EyesRequired: 1
-  _eyes: []
+  ExplosionParticleEffectPrefab: {fileID: 195234, guid: d2fbe3204980c425d9f62900033d1987,
+    type: 2}
   Activated:
     m_PersistentCalls:
       m_Calls:
@@ -656,8 +629,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  DeactivatedMaterial: {fileID: 0}
-  ActivatedMaterial: {fileID: 0}
 --- !u!114 &11433136
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -672,7 +643,18 @@ MonoBehaviour:
   Locks: 4
   OnLocksRemoved:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: ReadyForLaunch
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
 --- !u!114 &11468096
@@ -687,7 +669,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EyesRequired: 1
-  _eyes: []
+  ExplosionParticleEffectPrefab: {fileID: 195234, guid: d2fbe3204980c425d9f62900033d1987,
+    type: 2}
   Activated:
     m_PersistentCalls:
       m_Calls:
@@ -715,8 +698,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  DeactivatedMaterial: {fileID: 0}
-  ActivatedMaterial: {fileID: 0}
 --- !u!114 &11479650
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -729,7 +710,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EyesRequired: 1
-  _eyes: []
+  ExplosionParticleEffectPrefab: {fileID: 195234, guid: d2fbe3204980c425d9f62900033d1987,
+    type: 2}
   Activated:
     m_PersistentCalls:
       m_Calls:
@@ -757,8 +739,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  DeactivatedMaterial: {fileID: 0}
-  ActivatedMaterial: {fileID: 0}
 --- !u!114 &11483072
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -771,7 +751,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EyesRequired: 1
-  _eyes: []
+  ExplosionParticleEffectPrefab: {fileID: 195234, guid: d2fbe3204980c425d9f62900033d1987,
+    type: 2}
   Activated:
     m_PersistentCalls:
       m_Calls:
@@ -799,8 +780,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  DeactivatedMaterial: {fileID: 0}
-  ActivatedMaterial: {fileID: 0}
 --- !u!135 &13511588
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -847,7 +826,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.65
+  m_Radius: 1.37
   m_Center: {x: -0.00000011920929, y: 0, z: -0.00000023841858}
 --- !u!1001 &100100000
 Prefab:

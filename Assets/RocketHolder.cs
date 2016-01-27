@@ -6,9 +6,9 @@ using UnityEngine.Events;
 public class RocketHolder : MonoBehaviour {
 
 	public Transform MovePosition;
-	public UnityEvent WhenRocketHolderInPlace;
 	public float MoveDownDuration = 2.0f;
-	
+	public UnityEvent WhenRocketHolderInPlace;
+
 	protected AudioSource _moveDownAudio;
 
 	// Use this for initialization
@@ -22,13 +22,15 @@ public class RocketHolder : MonoBehaviour {
 	}
 	
 	public void MoveDown() {
-		if (_moveDownAudio)
-			_moveDownAudio.Play();
+		if (MovePosition != null) {
+			if (_moveDownAudio)
+				_moveDownAudio.Play();
 			
-		Tween.to(transform.position, MovePosition.position, MoveDownDuration, Tween.EaseType.easeInOutSine,
-			(Tween t) => {transform.position = (Vector3) t.Value;},
-			(Tween t) => { RocketHolderInPlace();}
-		);
+			Tween.to(transform.position, MovePosition.position, MoveDownDuration, Tween.EaseType.easeInOutSine,
+				(Tween t) => {transform.position = (Vector3) t.Value;},
+				(Tween t) => { RocketHolderInPlace();}
+			);
+		}
 	}
 	
 	protected void RocketHolderInPlace() {

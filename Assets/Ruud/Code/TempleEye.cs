@@ -14,7 +14,7 @@ public class TempleEye : MonoBehaviour {
 	protected AreaOfEffect _areaOfEffect;
 	protected int _eyeRotationCount = 0;
 	protected int _randomEyeRotations = 10;
-	protected bool _followHeroGaze = false;
+	protected bool _followTarget = false;
 	protected bool _heroIsLooking = false;
 	protected bool _eyeActivated = false;
 	protected AudioSource _chargeAudio;
@@ -22,6 +22,17 @@ public class TempleEye : MonoBehaviour {
 	protected Crystal _crystal = null;
 	protected Tween _laserChargeTween;
 	private Tween currentTween = null;
+
+	private Transform _target = null;
+
+	public Transform Target {
+		get {
+			return _target;
+		}
+		set {
+			_target = value;
+		}
+	}
 
 	public float IrisCharge {
 		get {
@@ -38,7 +49,10 @@ public class TempleEye : MonoBehaviour {
 		_chargeAudio = GetComponent<AudioSource>();
 		_initialEyeRotation = transform.localRotation;
 		_areaOfEffect = GetComponentInChildren<AreaOfEffect>();
-		_areaOfEffect.Triggered += ActivateEye;
+		_areaOfEffect.Triggered += ActivatePlayerTracking;
+		_target = _hero.LookAtTransform;
+		_followTarget = true;
+
 		IrisCharge = DeactivatedChargeValue;
 		EnableLaser(false);
 	}
@@ -56,25 +70,19 @@ public class TempleEye : MonoBehaviour {
 	}
 
 	protected void EnableLaser(bool aEnable) {
-		_followHeroGaze = true;
 		if (_laser != null)
 			_laser.Enable(aEnable);
 	}
-	
-	protected void LockToPlayer() {
-		_followHeroGaze  = true;
-		ChargeLaser();
-	}
-	
 
-	protected void ActivateEye() {
+	protected void ActivatePlayerTracking() {
 		if (!_eyeActivated) {
+			_target = _hero.LookAtTransform;
 			_eyeActivated = true; 
 			ChargeLaser();
 		}
 	}
 	
-	protected void ChargeLaser() {
+	public void ChargeLaser() {
 		if (_chargeAudio != null)
 			_chargeAudio.Play();
 				
@@ -96,7 +104,7 @@ public class TempleEye : MonoBehaviour {
 
 	protected void IgnorePlayer() {
 		EnableLaser(false);
-		_followHeroGaze = false;
+		_followTarget = false;
 		_eyeRotationCount = 0;
 		_randomEyeRotations = Random.Range(3, 4);
 		
@@ -112,19 +120,15 @@ public class TempleEye : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Transform _target = null;
-		
-		if (_followHeroGaze && _crystal == null) {
-			_target = _hero.LookAtTransform;
-				
+		if (_followTarget && _crystal == null) {
 			//check if you hit a crystal:
 			RaycastHit hit;
-			if (_laser.Enabled && _followHeroGaze && Physics.Raycast(transform.position, transform.forward, out hit, 100f, 1 << LayerMask.NameToLayer("Crystal"))) {
+			if (_laser.Enabled && _followTarget && Physics.Raycast(transform.position, transform.forward, out hit, 100f, 1 << LayerMask.NameToLayer("Crystal"))) {
 				Crystal theCristal = hit.collider.GetComponent<Crystal>();
 				
 				if (theCristal != null) {
 					if (theCristal.AddEye(this)) {
-						_followHeroGaze = false;
+						_followTarget = false;
 						_crystal = theCristal;
 					}
 				}
@@ -134,11 +138,7 @@ public class TempleEye : MonoBehaviour {
 		} else if (_crystal != null) {
 			_target = _crystal.transform;
 		}
-		
-		if (_crystal == null && _heroIsLooking) {
-			_target = _hero.transform;
-		}
-		
+
 		if (_target) {
 			Vector3 dir = _target.position - transform.position;
 			Quaternion lookAtRotation = Quaternion.LookRotation(dir, _hero.transform.up);
@@ -151,8 +151,4 @@ public class TempleEye : MonoBehaviour {
 		Gizmos.color = Color.red;
 		Gizmos.DrawRay(transform.position, forward);
 	}
-	
-	
-	
-	
 }
