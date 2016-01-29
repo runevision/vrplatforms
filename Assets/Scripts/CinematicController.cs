@@ -5,11 +5,14 @@ using Rucrede;
 
 public class CinematicController : MonoBehaviour {
 
+	public bool PlayMode = false;
 	public List<TempleEye> Eyes;
 	public List<Crystal> Crystals;
 	public List<Camera> CinematicCameras;
 	public List<Camera> PlayerCameras;
 	public List<float> CameraSwitchIntervals;
+
+	public GameObject LevelGameObject;
 
 	public float ActivateInterval = 0.5f;
 	public float ActivateDelay = 2f;
@@ -17,13 +20,19 @@ public class CinematicController : MonoBehaviour {
 	protected int _cameraIndex = 0;
 	protected int _cameraSwitchInterval = 0;
 
+
 	// Use this for initialization
 	void Start () {
+		Tween.delayedCall(0.5f, EnableLevel);
 		Tween.delayedCall(ActivateDelay, SetTargets);
 		foreach(Camera cam in PlayerCameras)
-			cam.enabled = false;
+			cam.gameObject.SetActive(false);
 
 		NextCamera();
+	}
+
+	void EnableLevel(bool aEnabled = true) {
+		LevelGameObject.SetActive(aEnabled);
 	}
 
 	void SetTargets() {
@@ -43,20 +52,27 @@ public class CinematicController : MonoBehaviour {
 	void NextCamera() {
 
 		foreach(Camera cam in CinematicCameras) {
-			cam.enabled = false;
+			cam.gameObject.SetActive(false);
 		}
 
-		CinematicCameras[_cameraIndex].enabled = true;
-		_cameraIndex = Mathf.Clamp(++_cameraIndex, 0, CinematicCameras.Count - 1);
+		CinematicCameras[_cameraIndex].gameObject.SetActive(true);
 
-		if (_cameraSwitchInterval < CameraSwitchIntervals.Count)
-			Tween.delayedCall(CameraSwitchIntervals[_cameraSwitchInterval], NextCamera);
+		_cameraIndex++;
+		if (_cameraIndex > CinematicCameras.Count-1)
+			_cameraIndex = 0;
 
-		_cameraSwitchInterval++;
+		if (PlayMode) {
+			if (_cameraSwitchInterval < CameraSwitchIntervals.Count)
+				Tween.delayedCall(CameraSwitchIntervals[_cameraSwitchInterval], NextCamera);
+
+			_cameraSwitchInterval++;
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if (Input.GetKeyDown("n")) {
+			NextCamera();
+		}
 	}
 }
