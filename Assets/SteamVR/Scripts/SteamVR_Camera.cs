@@ -164,7 +164,7 @@ public class SteamVR_Camera : MonoBehaviour
 			headCam.renderingPath = camera.renderingPath;
 		}
 #endif
-		ears.GetComponent<SteamVR_Ears>().vrcam = this;
+		//ears.GetComponent<SteamVR_Ears>().vrcam = this;
 		SteamVR_Render.Add(this);
 	}
 
