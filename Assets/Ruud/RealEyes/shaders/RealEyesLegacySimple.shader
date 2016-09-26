@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+
 Shader "RealEyes/RealEyesLegacySimple" {
     Properties {
       _IrisScale ("Scale", Range (.5, 1.5)) = 1
@@ -53,7 +55,7 @@ Shader "RealEyes/RealEyesLegacySimple" {
 					TANGENT_SPACE_ROTATION;
 						o.lightDir = normalize(mul (rotation, ObjSpaceLightDir(v.vertex)));
 						o.viewDir = mul(rotation, ObjSpaceViewDir(v.vertex));
-						float3 worldN = mul((float3x3)_Object2World, SCALED_NORMAL);
+						float3 worldN = mul((float3x3)unity_ObjectToWorld, SCALED_NORMAL);
 				    float3 shlight = ShadeSH9 (float4(worldN,1.0));
 				  	o.vlight = shlight;
 						

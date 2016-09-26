@@ -1,12 +1,10 @@
-﻿//========= Copyright 2014, Valve Corporation, All rights reserved. ===========
+﻿//======= Copyright (c) Valve Corporation, All rights reserved. ===============
 //
 // Purpose: Access to SteamVR system (hmd) and compositor (distort) interfaces.
 //
 //=============================================================================
 
 using UnityEngine;
-using System.Runtime.InteropServices;
-using System.IO;
 using Valve.VR;
 
 public class SteamVR : System.IDisposable
@@ -19,7 +17,12 @@ public class SteamVR : System.IDisposable
 	private static bool _enabled = true;
 	public static bool enabled
 	{
-		get { return _enabled; }
+		get
+		{
+			if (!UnityEngine.VR.VRSettings.enabled)
+				enabled = false;
+			return _enabled;
+		}
 		set
 		{
 			_enabled = value;
@@ -33,55 +36,65 @@ public class SteamVR : System.IDisposable
 	{
 		get
 		{
+#if UNITY_EDITOR
+			if (!Application.isPlaying)
+				return null;
+#endif
 			if (!enabled)
 				return null;
+
 			if (_instance == null)
+			{
 				_instance = CreateInstance();
+
+				// If init failed, then auto-disable so scripts don't continue trying to re-initialize things.
+				if (_instance == null)
+					_enabled = false;
+			}
+
 			return _instance;
 		}
 	}
 
+	public static bool usingNativeSupport
+	{
+		get { return UnityEngine.VR.VRDevice.GetNativePtr() != System.IntPtr.Zero; }
+	}
+
 	static SteamVR CreateInstance()
 	{
-		var error = EVRInitError.None;
-		var pHmd = OpenVR.Init(ref error);
-		ReportError(error);
-
-		if (pHmd == System.IntPtr.Zero || error != EVRInitError.None)
+		try
 		{
-			ShutdownSystems();
+			var error = EVRInitError.None;
+			if (!SteamVR.usingNativeSupport)
+			{
+				Debug.Log("OpenVR initialization failed.  Ensure 'Virtual Reality Supported' is checked in Player Settings, and OpenVR is added to the list of Virtual Reality SDKs.");
+				return null;
+			}
+
+			// Verify common interfaces are valid.
+
+			OpenVR.GetGenericInterface(OpenVR.IVRCompositor_Version, ref error);
+			if (error != EVRInitError.None)
+			{
+				ReportError(error);
+				return null;
+			}
+
+			OpenVR.GetGenericInterface(OpenVR.IVROverlay_Version, ref error);
+			if (error != EVRInitError.None)
+			{
+				ReportError(error);
+				return null;
+			}
+		}
+		catch (System.Exception e)
+		{
+			Debug.LogError(e);
 			return null;
 		}
 
-		// Make sure we're using the proper version
-		pHmd = OpenVR.GetGenericInterface(OpenVR.IVRSystem_Version, ref error);
-		ReportError(error);
-
-		if (pHmd == System.IntPtr.Zero || error != EVRInitError.None)
-		{
-			ShutdownSystems();
-			return null;
-		}
-
-		var pCompositor = OpenVR.GetGenericInterface(OpenVR.IVRCompositor_Version, ref error);
-		ReportError(error);
-
-		if (pCompositor == System.IntPtr.Zero || error != EVRInitError.None)
-		{
-			ShutdownSystems();
-			return null;
-		}
-
-		var pOverlay = OpenVR.GetGenericInterface(OpenVR.IVROverlay_Version, ref error);
-		ReportError(error);
-
-		if (pOverlay == System.IntPtr.Zero || error != EVRInitError.None)
-		{
-			ShutdownSystems();
-			return null;
-		}
-
-		return new SteamVR(pHmd, pCompositor, pOverlay);
+		return new SteamVR();
 	}
 
 	static void ReportError(EVRInitError error)
@@ -237,13 +250,13 @@ public class SteamVR : System.IDisposable
 
 	#endregion
 
-	private SteamVR(System.IntPtr pHmd, System.IntPtr pCompositor, System.IntPtr pOverlay)
+	private SteamVR()
 	{
-		hmd = new CVRSystem(pHmd);
+		hmd = OpenVR.System;
 		Debug.Log("Connected to " + hmd_TrackingSystemName + ":" + hmd_SerialNumber);
 
-		compositor = new CVRCompositor(pCompositor);
-		overlay = new CVROverlay(pOverlay);
+		compositor = OpenVR.Compositor;
+		overlay = OpenVR.Overlay;
 
 		// Setup render values
 		uint w = 0, h = 0;
@@ -272,8 +285,6 @@ public class SteamVR : System.IDisposable
 		textureBounds[1].uMax = 0.5f + 0.5f * r_right / tanHalfFov.x;
 		textureBounds[1].vMin = 0.5f - 0.5f * r_bottom / tanHalfFov.y;
 		textureBounds[1].vMax = 0.5f - 0.5f * r_top / tanHalfFov.y;
-
-		Unity.SetSubmitParams(textureBounds[0], textureBounds[1], EVRSubmitFlags.Submit_Default);
 
 		// Grow the recommended size to account for the overlapping fov
 		sceneWidth = sceneWidth / Mathf.Max(textureBounds[0].uMax - textureBounds[0].uMin, textureBounds[1].uMax - textureBounds[1].uMin);
@@ -317,13 +328,7 @@ public class SteamVR : System.IDisposable
 		SteamVR_Utils.Event.Remove("device_connected", OnDeviceConnected);
 		SteamVR_Utils.Event.Remove("new_poses", OnNewPoses);
 
-		ShutdownSystems();
 		_instance = null;
-	}
-
-	private static void ShutdownSystems()
-	{
-		OpenVR.Shutdown();
 	}
 
 	// Use this interface to avoid accidentally creating the instance in the process of attempting to dispose of it.

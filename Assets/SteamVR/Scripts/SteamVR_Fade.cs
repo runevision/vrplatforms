@@ -1,5 +1,5 @@
 //#define TEST_FADE_VIEW
-//========= Copyright 2014, Valve Corporation, All rights reserved. ===========
+//======= Copyright (c) Valve Corporation, All rights reserved. ===============
 //
 // Purpose:	CameraFade script adapted to work with SteamVR.
 //
@@ -21,6 +21,7 @@
 //=============================================================================
 
 using UnityEngine;
+using Valve.VR;
 
 public class SteamVR_Fade : MonoBehaviour
 {
@@ -36,9 +37,9 @@ public class SteamVR_Fade : MonoBehaviour
 
 	static public void View(Color newColor, float duration)
 	{
-		var vr = SteamVR.instance;
-		if (vr != null && vr.compositor != null)
-			vr.compositor.FadeToColor(duration, newColor.r, newColor.g, newColor.b, newColor.a, false);
+		var compositor = OpenVR.Compositor;
+		if (compositor != null)
+			compositor.FadeToColor(duration, newColor.r, newColor.g, newColor.b, newColor.a, false);
 	}
 
 #if TEST_FADE_VIEW
@@ -71,12 +72,14 @@ public class SteamVR_Fade : MonoBehaviour
 	}
 
 	static Material fadeMaterial = null;
+	static int fadeMaterialColorID = -1;
 
 	void OnEnable()
 	{
 		if (fadeMaterial == null)
 		{
 			fadeMaterial = new Material(Shader.Find("Custom/SteamVR_Fade"));
+			fadeMaterialColorID = Shader.PropertyToID("fadeColor");
 		}
 
 		SteamVR_Utils.Event.Listen("fade", OnStartFade);
@@ -115,17 +118,15 @@ public class SteamVR_Fade : MonoBehaviour
 
 		if (currentColor.a > 0 && fadeMaterial)
 		{
-			GL.PushMatrix();
-			GL.LoadOrtho();
+			fadeMaterial.SetColor(fadeMaterialColorID, currentColor);
 			fadeMaterial.SetPass(0);
 			GL.Begin(GL.QUADS);
-			GL.Color(currentColor);
-			GL.Vertex3(0, 0, 0);
-			GL.Vertex3(1, 0, 0);
+
+			GL.Vertex3(-1, -1, 0);
+			GL.Vertex3( 1, -1, 0);
 			GL.Vertex3(1, 1, 0);
-			GL.Vertex3(0, 1, 0);
+			GL.Vertex3(-1, 1, 0);
 			GL.End();
-			GL.PopMatrix();
 		}
 	}
 }

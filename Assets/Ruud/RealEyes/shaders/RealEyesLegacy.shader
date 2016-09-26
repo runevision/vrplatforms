@@ -1,3 +1,6 @@
+// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+// Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
+
 Shader "RealEyes/RealEyesLegacy" {
     Properties {
       _IrisScale ("Scale", Range (.5, 1.5)) = 1
@@ -60,7 +63,7 @@ Shader "RealEyes/RealEyesLegacy" {
 					o.uv = uv + .5;
     				
 					float3 viewDir = ObjSpaceViewDir(v.vertex);
-					float3 worldRefl = mul ((float3x3)_Object2World, viewDir);
+					float3 worldRefl = mul ((float3x3)unity_ObjectToWorld, viewDir);
 					
 					TANGENT_SPACE_ROTATION;
 					
@@ -68,10 +71,10 @@ Shader "RealEyes/RealEyesLegacy" {
   					o.viewDir = mul(rotation, ObjSpaceViewDir(v.vertex));
   					
   					o.viewDirW = WorldSpaceViewDir(v.vertex);
-  					o.tangent = normalize( mul( _Object2World, v.tangent ).xyz );
-  					o.normal = normalize( mul( float4( v.normal, 0.0 ), _World2Object ).xyz );
+  					o.tangent = normalize( mul( unity_ObjectToWorld, v.tangent ).xyz );
+  					o.normal = normalize( mul( float4( v.normal, 0.0 ), unity_WorldToObject ).xyz );
   					o.binormal = cross(o.normal, o.tangent) * v.tangent.w;
-  					float3 worldN = mul((float3x3)_Object2World, SCALED_NORMAL);
+  					float3 worldN = mul((float3x3)unity_ObjectToWorld, SCALED_NORMAL);
 				    float3 shlight = ShadeSH9 (float4(worldN,1.0));
 				  	o.vlight = shlight;
   					
@@ -221,11 +224,11 @@ Shader "RealEyes/RealEyesLegacy" {
 					o.uv = uv + .5;
     				
 					float3 viewDir = -ObjSpaceViewDir(v.vertex);
-					float3 worldRefl = mul ((float3x3)_Object2World, viewDir);
+					float3 worldRefl = mul ((float3x3)unity_ObjectToWorld, viewDir);
 					TANGENT_SPACE_ROTATION;
   					o.lightDir = normalize(mul (rotation, ObjSpaceLightDir(v.vertex)));
   					o.viewDir = mul(rotation, ObjSpaceViewDir(v.vertex));
-                    o.normal = normalize( mul( float4( v.normal, 0.0 ), _World2Object ).xyz );
+                    o.normal = normalize( mul( float4( v.normal, 0.0 ), unity_WorldToObject ).xyz );
                       
   					
                     TRANSFER_VERTEX_TO_FRAGMENT(o);

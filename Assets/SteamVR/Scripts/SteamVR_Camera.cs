@@ -1,4 +1,4 @@
-﻿//========= Copyright 2014, Valve Corporation, All rights reserved. ===========
+﻿//======= Copyright (c) Valve Corporation, All rights reserved. ===============
 //
 // Purpose: Adds SteamVR render support to existing camera objects
 //
@@ -18,6 +18,10 @@ public class SteamVR_Camera : MonoBehaviour
 	public Transform offset { get { return _head; } } // legacy
 	public Transform origin { get { return _head.parent; } }
 
+	[SerializeField]
+	private Transform _ears;
+	public Transform ears { get { return _ears; } }
+
 	public Ray GetRay()
 	{
 		return new Ray(_head.position, _head.forward);
@@ -25,55 +29,11 @@ public class SteamVR_Camera : MonoBehaviour
 
 	public bool wireframe = false;
 
-	[SerializeField]
-	private SteamVR_CameraFlip flip;
-
-	#region Materials
-
-	static public Material blitMaterial;
-
-	// Using a single shared offscreen buffer to render the scene.  This needs to be larger
-	// than the backbuffer to account for distortion correction.  The default resolution
-	// gives us 1:1 sized pixels in the center of view, but quality can be adjusted up or
-	// down using the following scale value to balance performance.
-	static public float sceneResolutionScale = 1.0f;
-	static private RenderTexture _sceneTexture;
-	static public RenderTexture GetSceneTexture(bool hdr)
+	static public float sceneResolutionScale
 	{
-		var vr = SteamVR.instance;
-		if (vr == null)
-			return null;
-
-		int w = (int)(vr.sceneWidth * sceneResolutionScale);
-		int h = (int)(vr.sceneHeight * sceneResolutionScale);
-		int aa = QualitySettings.antiAliasing == 0 ? 1 : QualitySettings.antiAliasing;
-		var format = hdr ? RenderTextureFormat.ARGBHalf : RenderTextureFormat.ARGB32;
-
-		if (_sceneTexture != null)
-		{
-			if (_sceneTexture.width != w || _sceneTexture.height != h || _sceneTexture.antiAliasing != aa || _sceneTexture.format != format)
-			{
-				Debug.Log(string.Format("Recreating scene texture.. Old: {0}x{1} MSAA={2} [{3}] New: {4}x{5} MSAA={6} [{7}]",
-					_sceneTexture.width, _sceneTexture.height, _sceneTexture.antiAliasing, _sceneTexture.format, w, h, aa, format));
-				Object.Destroy(_sceneTexture);
-				_sceneTexture = null;
-			}
-		}
-
-		if (_sceneTexture == null)
-		{
-			_sceneTexture = new RenderTexture(w, h, 0, format);
-			_sceneTexture.antiAliasing = aa;
-
-			// OpenVR assumes floating point render targets are linear unless otherwise specified.
-			var colorSpace = (hdr && QualitySettings.activeColorSpace == ColorSpace.Gamma) ? EColorSpace.Gamma : EColorSpace.Auto;
-            Unity.SetColorSpace(colorSpace);
-		}
-
-		return _sceneTexture;
+		get { return UnityEngine.VR.VRSettings.renderScale; }
+		set { UnityEngine.VR.VRSettings.renderScale = value; }
 	}
-
-	#endregion
 
 	#region Enable / Disable
 
@@ -90,46 +50,44 @@ public class SteamVR_Camera : MonoBehaviour
 		{
 			if (head != null)
 			{
-				head.GetComponent<SteamVR_GameView>().enabled = false;
 				head.GetComponent<SteamVR_TrackedObject>().enabled = false;
 			}
-
-			if (flip != null)
-				flip.enabled = false;
 
 			enabled = false;
 			return;
 		}
 
-		if (blitMaterial == null)
+		// Convert camera rig for native OpenVR integration.
+		var t = transform;
+		if (head != t)
 		{
-			blitMaterial = new Material(Shader.Find("Custom/SteamVR_Blit"));
+			Expand();
+
+			t.parent = origin;
+
+			while (head.childCount > 0)
+				head.GetChild(0).parent = t;
+
+			// Keep the head around, but parent to the camera now since it moves with the hmd
+			// but existing content may still have references to this object.
+			head.parent = t;
+			head.localPosition = Vector3.zero;
+			head.localRotation = Quaternion.identity;
+			head.localScale = Vector3.one;
+			head.gameObject.SetActive(false);
+
+			_head = t;
 		}
 
-		// Ensure rig is properly set up
-		Expand();
-
-		// Set remaining hmd specific settings
-		var camera = GetComponent<Camera>();
-		camera.fieldOfView = vr.fieldOfView;
-		camera.aspect = vr.aspect;
-		camera.eventMask = 0;			// disable mouse events
-		camera.orthographic = false;	// force perspective
-		camera.enabled = false;			// manually rendered by SteamVR_Render
-
-		if (camera.actualRenderingPath != RenderingPath.Forward && QualitySettings.antiAliasing > 1)
+		if (ears == null)
 		{
-			Debug.LogWarning("MSAA only supported in Forward rendering path. (disabling MSAA)");
-			QualitySettings.antiAliasing = 0;
-		}
+			var e = transform.GetComponentInChildren<SteamVR_Ears>();
+			if (e != null)
+				_ears = e.transform;
+        }
 
-		// Ensure game view camera hdr setting matches
-		var headCam = head.GetComponent<Camera>();
-		if (headCam != null)
-		{
-			headCam.hdr = camera.hdr;
-			headCam.renderingPath = camera.renderingPath;
-		}
+		if (ears != null)
+			ears.GetComponent<SteamVR_Ears>().vrcam = this;
 
 		SteamVR_Render.Add(this);
 	}
@@ -165,20 +123,14 @@ public class SteamVR_Camera : MonoBehaviour
 				var c = components[i] as SteamVR_Camera;
 				if (c != null && c != this)
 				{
-					if (c.flip != null)
-						Object.DestroyImmediate(c.flip);
-					Object.DestroyImmediate(c);
+					DestroyImmediate(c);
 				}
 			}
 
 			components = GetComponents<Component>();
 
-			if (this != components[components.Length - 1] || flip == null)
+			if (this != components[components.Length - 1])
 			{
-				var go = gameObject;
-				if (flip == null)
-					flip = go.AddComponent<SteamVR_CameraFlip>();
-
 				// Store off values to be restored on new instance
 				values = new Hashtable();
 				var fields = GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
@@ -186,7 +138,8 @@ public class SteamVR_Camera : MonoBehaviour
 					if (f.IsPublic || f.IsDefined(typeof(SerializeField), true))
 						values[f] = f.GetValue(this);
 
-				GameObject.DestroyImmediate(this);
+				var go = gameObject;
+				DestroyImmediate(this);
 				go.AddComponent<SteamVR_Camera>().ForceLast();
 			}
 		}
@@ -200,10 +153,10 @@ public class SteamVR_Camera : MonoBehaviour
 	public bool isExpanded { get { return head != null && transform.parent == head; } }
 #endif
 	const string eyeSuffix = " (eye)";
+	const string earsSuffix = " (ears)";
 	const string headSuffix = " (head)";
 	const string originSuffix = " (origin)";
 	public string baseName { get { return name.EndsWith(eyeSuffix) ? name.Substring(0, name.Length - eyeSuffix.Length) : name; } }
-	static readonly System.Type[] headTypes = { typeof(AudioListener), typeof(GUILayer), typeof(FlareLayer) };
 
 	// Object hierarchy creation to make it easy to parent other objects appropriately,
 	// otherwise this gets called on demand at runtime. Remaining initialization is
@@ -221,7 +174,7 @@ public class SteamVR_Camera : MonoBehaviour
 
 		if (head == null)
 		{
-			_head = new GameObject(name + headSuffix, typeof(SteamVR_GameView), typeof(SteamVR_TrackedObject)).transform;
+			_head = new GameObject(name + headSuffix, typeof(SteamVR_TrackedObject)).transform;
 			head.parent = _origin;
 			head.position = transform.position;
 			head.rotation = transform.rotation;
@@ -239,9 +192,6 @@ public class SteamVR_Camera : MonoBehaviour
 			camera.useOcclusionCulling = false;
 		}
 
-		if (!name.EndsWith(eyeSuffix))
-			name += eyeSuffix;
-
 		if (transform.parent != head)
 		{
 			transform.parent = head;
@@ -252,16 +202,27 @@ public class SteamVR_Camera : MonoBehaviour
 			while (transform.childCount > 0)
 				transform.GetChild(0).parent = head;
 
-			foreach (var type in headTypes)
+			var guiLayer = GetComponent<GUILayer>();
+			if (guiLayer != null)
 			{
-				var component = GetComponent(type);
-				if (component != null)
-				{
-					Object.DestroyImmediate(component);
-					head.gameObject.AddComponent(type);
-				}
+				DestroyImmediate(guiLayer);
+				head.gameObject.AddComponent<GUILayer>();
+			}
+
+			var audioListener = GetComponent<AudioListener>();
+			if (audioListener != null)
+			{
+				DestroyImmediate(audioListener);
+				_ears = new GameObject(name + earsSuffix, typeof(SteamVR_Ears)).transform;
+				ears.parent = _head;
+				ears.localPosition = Vector3.zero;
+				ears.localRotation = Quaternion.identity;
+				ears.localScale = Vector3.one;
 			}
 		}
+
+		if (!name.EndsWith(eyeSuffix))
+			name += eyeSuffix;
 	}
 
 	public void Collapse()
@@ -272,14 +233,22 @@ public class SteamVR_Camera : MonoBehaviour
 		while (head.childCount > 0)
 			head.GetChild(0).parent = transform;
 
-		foreach (var type in headTypes)
+		var guiLayer = head.GetComponent<GUILayer>();
+		if (guiLayer != null)
 		{
-			var component = head.GetComponent(type);
-			if (component != null)
-			{
-				Object.DestroyImmediate(component);
-				gameObject.AddComponent(type);
-			}
+			DestroyImmediate(guiLayer);
+			gameObject.AddComponent<GUILayer>();
+		}
+
+		if (ears != null)
+		{
+			while (ears.childCount > 0)
+				ears.GetChild(0).parent = transform;
+
+			DestroyImmediate(ears.gameObject);
+			_ears = null;
+
+			gameObject.AddComponent(typeof(AudioListener));
 		}
 
 		if (origin != null)
@@ -292,7 +261,7 @@ public class SteamVR_Camera : MonoBehaviour
 				while (_origin.childCount > 0)
 					_origin.GetChild(0).parent = _origin.parent;
 
-				Object.DestroyImmediate(_origin.gameObject);
+				DestroyImmediate(_origin.gameObject);
 			}
 			else
 			{
@@ -300,70 +269,11 @@ public class SteamVR_Camera : MonoBehaviour
 			}
 		}
 
-		Object.DestroyImmediate(head.gameObject);
+		DestroyImmediate(head.gameObject);
 		_head = null;
 
 		if (name.EndsWith(eyeSuffix))
 			name = name.Substring(0, name.Length - eyeSuffix.Length);
-	}
-
-	#endregion
-
-	#region Render callbacks
-
-	void OnPreRender()
-	{
-		if (flip)
-			flip.enabled = (SteamVR_Render.Top() == this && SteamVR.instance.graphicsAPI == EGraphicsAPIConvention.API_DirectX);
-
-		var headCam = head.GetComponent<Camera>();
-		if (headCam != null)
-			headCam.enabled = (SteamVR_Render.Top() == this);
-
-		if (wireframe)
-			GL.wireframe = true;
-	}
-
-	void OnPostRender()
-	{
-		if (wireframe)
-			GL.wireframe = false;
-	}
-
-	void OnRenderImage(RenderTexture src, RenderTexture dest)
-	{
-		if (SteamVR_Render.Top() == this)
-		{
-			int eventID;
-			if (SteamVR_Render.eye == EVREye.Eye_Left)
-			{
-				// Get gpu started on work early to avoid bubbles at the top of the frame.
-				SteamVR_Utils.QueueEventOnRenderThread(Unity.k_nRenderEventID_Flush);
-
-				eventID = Unity.k_nRenderEventID_SubmitL;
-			}
-			else
-			{
-				eventID = Unity.k_nRenderEventID_SubmitR;
-			}
-
-			// Queue up a call on the render thread to Submit our render target to the compositor.
-			SteamVR_Utils.QueueEventOnRenderThread(eventID);
-		}
-
-		Graphics.SetRenderTarget(dest);
-		SteamVR_Camera.blitMaterial.mainTexture = src;
-
-		GL.PushMatrix();
-		GL.LoadOrtho();
-		SteamVR_Camera.blitMaterial.SetPass(0);
-		GL.Begin(GL.QUADS);
-		GL.TexCoord2(0.0f, 0.0f); GL.Vertex3(-1,  1, 0);
-		GL.TexCoord2(1.0f, 0.0f); GL.Vertex3( 1,  1, 0);
-		GL.TexCoord2(1.0f, 1.0f); GL.Vertex3( 1, -1, 0);
-		GL.TexCoord2(0.0f, 1.0f); GL.Vertex3(-1, -1, 0);
-		GL.End();
-		GL.PopMatrix();
 	}
 
 	#endregion

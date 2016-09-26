@@ -1,4 +1,4 @@
-﻿//========= Copyright 2014, Valve Corporation, All rights reserved. ===========
+﻿//======= Copyright (c) Valve Corporation, All rights reserved. ===============
 //
 // Purpose: For controlling in-game objects with tracked devices.
 //
@@ -74,12 +74,20 @@ public class SteamVR_TrackedObject : MonoBehaviour
 
 	void OnEnable()
 	{
+		var render = SteamVR_Render.instance;
+		if (render == null)
+		{
+			enabled = false;
+			return;
+		}
+
 		SteamVR_Utils.Event.Listen("new_poses", OnNewPoses);
 	}
 
 	void OnDisable()
 	{
 		SteamVR_Utils.Event.Remove("new_poses", OnNewPoses);
+		isValid = false;
 	}
 
 	public void SetDeviceIndex(int index)
